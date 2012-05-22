@@ -1,7 +1,7 @@
 
 source :rubygems
 
-gem 'jekyll',       '0.7.0'
+gem 'jekyll'
 gem 'nokogiri'
 gem 'rack'
 gem 'rack-rewrite'
