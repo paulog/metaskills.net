@@ -14,10 +14,10 @@ GEM
     liquid (2.2.2)
     maruku (0.6.0)
       syntax (>= 1.0.0)
-    nokogiri (1.4.4)
-    rack (1.2.2)
-    rack-rewrite (1.0.2)
-    sass (3.1.7)
+    nokogiri (1.5.2)
+    rack (1.4.1)
+    rack-rewrite (1.2.1)
+    sass (3.1.18)
     syntax (1.0.0)
 
 PLATFORMS
@@ -26,7 +26,7 @@ PLATFORMS
 DEPENDENCIES
   RedCloth (= 4.2.3)
   jekyll (= 0.7.0)
-  nokogiri (= 1.4.4)
-  rack (= 1.2.2)
-  rack-rewrite (= 1.0.2)
-  sass (= 3.1.7)
+  nokogiri
+  rack
+  rack-rewrite
+  sass
