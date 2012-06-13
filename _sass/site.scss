@@ -22,12 +22,16 @@
 @font-face  { font-family: MetaDroidSans; src: url('/resource/font-goog-dsb.ttf') format('truetype'); font-style: normal; font-weight: bold; }
 @font-face  { font-family: MetaInconsolata; src: url('/resource/font-inconsolata.ttf') format('truetype'); }
 @font-face  { font-family: MetaPictos; src: url('/resource/font-pictos-web.ttf') format('truetype'); font-style: normal; font-weight: normal; }
+@font-face  { font-family: 'PTSans'; src: url('/resource/font-pt-sans-webfont.ttf'); }
+@font-face  { font-family: 'PTSans'; font-weight: bold; src: url('/resource/pt-sans-bold-webfont.ttf'); }
+@font-face  { font-family: 'PTSans'; font-style: italic; src: url('/resource/pt-sans-italic-webfont.ttf'); }
 
-@mixin font-metamed($size)  { font-family: MetaMedRoman, sans-serif; font-size: $size; }
+@mixin font-metamed($size) { font-family: MetaMedRoman, sans-serif; font-size: $size; }
 @mixin font-metamono($size) { font-family: MetaMono, courier, monospace; font-size: $size; }
-@mixin font-droidsans($size)  { font-family: MetaDroidSans, Helvetica sans-serif; font-size: $size; }
-@mixin font-inconsolata($size)  { font-family: MetaInconsolata, Helvetica sans-serif; font-size: $size; }
-@mixin font-pictos($size)  { font-family: MetaPictos; font-size: $size; }
+@mixin font-droidsans($size) { font-family: MetaDroidSans, Helvetica sans-serif; font-size: $size; }
+@mixin font-inconsolata($size) { font-family: MetaInconsolata, Helvetica sans-serif; font-size: $size; }
+@mixin font-pictos($size) { font-family: MetaPictos; font-size: $size; }
+@mixin font-ptsans($size) { font-family: PTSans; font-size: $size; }
 
 
 /* Variables */
@@ -531,7 +535,7 @@ $dsq-bubleft: 50px;
     pre.command, pre.code, pre.text { padding-bottom:16px; }
     pre.text { &:before { display:none; } }
     /* other */
-    ul { @include font-droidsans(16px); margin: 4px 0; padding-left: 18px; margin-left: 10px; line-height: 20px; }
+    ul { @include font-ptsans(17px); margin: 4px 0; padding-left: 18px; margin-left: 10px; line-height: 20px; }
     ul li { margin: 5px 0; }
     p strong { color:$color-strong; }
     img.shadow { margin-bottom:10px; @include vndr-box-shadow(7px, 7px, 8px, rgba(0,0,0,0.7)); }
@@ -549,7 +553,7 @@ body {
   color: #f2f2f2; 
   background: {
     color: #0d0d0d;
-    image: url('/resource/bg.gif');
+    image: url('/resource/bg2.png');
   }
   header#mast {
     &:before {
@@ -691,7 +695,7 @@ body {
   h2 { font-size: 24px; line-height:1.3em; border-bottom: 1px dashed rgba(255,255,255,0.2); margin: 35px 0 10px 0; }
   h3 { font-size: 18px; line-height:1.3em; border-top: 1px dashed rgba(255,255,255,0.2); border-bottom: 1px dashed rgba(255,255,255,0.2); margin-bottom:5px; }
   h4 { font-size: 16px; line-height:1.3em; margin-bottom:5px; }
-  p { margin: 15px 0; @include font-droidsans(17px); line-height: 1.5em; }
+  p { margin: 15px 0; @include font-ptsans(18px); line-height: 150%; font-weight: 100; }
   table th { text-align:right; font-weight:bold; padding-right:8px; }
   .left { text-align:left; }
   .right { text-align:right; }
