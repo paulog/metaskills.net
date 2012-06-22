@@ -50,14 +50,14 @@ $ git submodule add git://github.com/maccman/spine.git vendor/assets/javascripts
 {% endhighlight %}
 
 <p>
-  To something like the following. Since the <code>spine/lib</code> directory is where the source CoffeeScript files from our submodule above and Sprockets will render these just fine, it all just works!
+  To something like the following. Since the <code>spine/src</code> directory is where the source CoffeeScript files from our submodule above and Sprockets will render these just fine, it all just works!
 </p>
 
 {% highlight ruby %}
-#= require spine/lib/spine
-#= require spine/lib/manager
-#= require spine/lib/ajax
-#= require spine/lib/route
+#= require spine/src/spine
+#= require spine/src/manager
+#= require spine/src/ajax
+#= require spine/src/route
 {% endhighlight %}
 
 <p>
