@@ -31,6 +31,10 @@ categories:
 
 <h2>Faking Time With Sinon.JS</h2>
 
+<aside class="flash_info">
+  <a href="http://pivotal.github.com/jasmine/#section-Mocking_the_JavaScript_Clock">Jasmine 1.2 now has a similiar mocking technique for the JavaScript clock.</a>
+</aside>
+
 <p>
   <a href="http://sinonjs.org">Sinon.JS</a> is a small stand-alone library that provides spies, stubs and mocks for your JavaScript. To be honest, I use Jasmine and supporting extensions for most of these features. However, Sinon.JS has one killer feature, faking time! Yup, it allows you to freeze JavaScript's clock to a specific time and tick it forward as needed. I want you to ponder the benefits of that for awhile. Imagine you have time sensitive JavaScript code that uses <code>setInterval()</code> or the like. Sinon.JS will actually allow you to tick time forward and still maintain compatibility with that code's behavior! Basically Sinon.JS is equal to our Ruby Timecop gem and then some! Check out their <a href="http://sinonjs.org/docs/#clock-api">clock API</a> or read the code if you want to learn more. Remember, it is safe to include Sinon.JS in any existing JavaScript project since it will not do anything unless you ask it too. So no fear in it clashing with your other JavaScript test setup.
 </p>
