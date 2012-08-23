@@ -937,6 +937,8 @@ $tmc_nt: rgb(48,48,255);
   .flash_warn.printable, .flash_info.printable { display: block; }
   
   body {
+    h1 { text-shadow: none; }
+    p  { text-shadow: none; }
     section#page {
       section#content  {
         .flash_warn, .flash_info { 
