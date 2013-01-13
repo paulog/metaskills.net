@@ -23,8 +23,8 @@
 @font-face  { font-family: MetaInconsolata; src: url('/resource/font-inconsolata.ttf') format('truetype'); }
 @font-face  { font-family: MetaPictos; src: url('/resource/font-pictos-web.ttf') format('truetype'); font-style: normal; font-weight: normal; }
 @font-face  { font-family: 'PTSans'; src: url('/resource/font-pt-sans-webfont.ttf'); }
-@font-face  { font-family: 'PTSans'; font-weight: bold; src: url('/resource/pt-sans-bold-webfont.ttf'); }
-@font-face  { font-family: 'PTSans'; font-style: italic; src: url('/resource/pt-sans-italic-webfont.ttf'); }
+@font-face  { font-family: 'PTSans'; font-weight: bold; src: url('/resource/font-pt-sans-bold-webfont.ttf'); }
+@font-face  { font-family: 'PTSans'; font-style: italic; src: url('/resource/font-pt-sans-italic-webfont.ttf'); }
 
 @mixin font-metamed($size) { font-family: MetaMedRoman, sans-serif; font-size: $size; }
 @mixin font-metamono($size) { font-family: MetaMono, courier, monospace; font-size: $size; }
@@ -252,11 +252,11 @@ $color-strong: #66ff66;
 
 @mixin cmpnt-blockquote {
   blockquote {
-    @include font-metamed(18px);
+    @include font-metamed(17px);
     text-align: center;
     font-style: italic;
     line-height: 1.4em;
-    margin: 20px 75px;
+    margin: 20px 50px;
     position: relative;
     &:before, &:after {
       display: block;
