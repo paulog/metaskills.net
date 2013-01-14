@@ -77,7 +77,7 @@ My Mom, Linda Campbell - now remarried, recently told this story to my Brother a
 
 ## In Closing
 
-The Collins family has always been close, despite long durations without seeing one another. Often times I went weeks without checking in on my immediate family. The great part about family is that you can always pick up right where you left off. Time has no meaning. But with my Dad's passing, I will really miss that next time where I really want to call and talk to him. 
+The Collins family has always been close, despite long durations without seeing one another. Often times I went weeks without checking in on my immediate family. The great part about family is that you can always pick up right where you left off. Time has no meaning. But with my Dad's passing, I will really miss that next time where I want to call and talk to him. 
 
 
 ## Other Links
