@@ -56,7 +56,7 @@ Golf was not our only sport. For some reason Dad made me and my brother try our 
 <span class="photofancy floatl mr20">
   <img src="/assets/dad-with-lois.jpg" alt="Kenneth Earle Collins - With Wife Lois Collins At My Wedding" width="227" height="170" />
 </span>
-After getting divorced in 1991, my Dad eventually remarried in July 2006 to Lois V. Collins. Dad and Lois met at a Parents Without Partners (PWP) group and dated for some time. Lois is a real class act and took car of my Dad during his last few years while battling his lung cancer. I can not count the number of times she would drive them both to his favorite destinations or out of State trips. Lois will always be a Collins and is family to me. I love her dearly.
+After getting divorced in 1991, my Dad eventually remarried in July 2006 to Lois V. Collins. Dad and Lois met at a Parents Without Partners (PWP) group and dated for some time. Lois is a real class act and took care of my Dad during his last few years while battling lung cancer. I can not count the number of times she would drive them both to his favorite destinations or other out of state trips. Lois will always be a Collins and is family to me. I love her dearly.
 
 
 ## Stories
