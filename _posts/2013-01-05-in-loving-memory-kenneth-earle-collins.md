@@ -23,7 +23,7 @@ I am not sure when my father's parents moved from West Virginia, but my Dad did 
 <span class="photofancy floatl mr20 mb0">
   <img src="/assets/dad-army-vietnam.jpg" alt="Kenneth Earle Collins - Vietnam" width="134" height="200" />
 </span>
-Dad, served two years in Vietnam from 1966 to 1968. Like most veterans, he never talked about his service. After he passed, I decided to use [DD 214](http://en.wikipedia.org/wiki/DD_Form_214) to order replacement decorations. Thankfully, the [Medals Of America](http://www.medalsofamerica.com) company put in a rush order for me so we could decorate his uniform for the memorial service. He also saved his short-timers stick and jacket with hand sew patches and lettering. The text on the back of the jacket says "I am certain to go to Heaven because I spent my time in Hell." 
+Dad, served two years in Vietnam from 1966 to 1968. Like most veterans, he never talked about his service. After he passed, I decided to use DD 214 to order replacement decorations. Thankfully, the Medals Of America company put in a rush order for me so we could decorate his uniform for the memorial service. He also saved his short-timers stick and jacket with hand sew patches and lettering. The text on the back of the jacket says "I am certain to go to Heaven because I spent my time in Hell." 
 
 Below is a list of his decorations:
 
@@ -74,10 +74,17 @@ My Mom, Linda Campbell - now remarried, recently told this story to my Brother a
 > 
 > We didn't cross paths again until after graduation, when he worked at James' Texaco. I had just gotten my new spiffy, metallic blue Corvair with 4 in the floor and was gassing up at his station, trying to look prim and proper. He never mentioned the shorts eating fence until later but when he asked me on a date, I remembered his gallantry from many years earlier.
 
+<!--
+* Made pottery (as trays) in 1st grade and he kept all of them.
+* Leaf report at coleman's nursury.
+* Gather up other stories.
+-->
+
+
 
 ## In Closing
 
-The Collins family has always been close, despite long durations without seeing one another. Often times I went weeks without checking in on my immediate family. The great part about family is that you can always pick up right where you left off. Time has no meaning. But with my Dad's passing, I will really miss that next time where I want to call and talk to him. 
+The Collins family has always been close, despite long durations without seeing one another. Often times I went weeks without checking in on my immediate family. The great part about family is that you can always pick up right where you left off. Time has no meaning. But with my Dad's passing, I will really miss that next time when I want to call and talk to him.
 
 
 ## Other Links
