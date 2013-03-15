@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
 
-# Build and deploy to mini.
-
 mv _config.yml _config_dev.yml
 mv _config_deploy.yml _config.yml
 
