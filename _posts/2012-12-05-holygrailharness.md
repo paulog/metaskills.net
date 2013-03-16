@@ -29,16 +29,15 @@ The HolyGrailHarness is perfect for any of the following:
   * [Download](https://github.com/metaskills/holy_grail_harness/archive/master.zip) the project.
   * Now from the root of "holy_grail_harness" directory.
 
-```shell
-$ bundle install
-$ bundle exec thor setup my_app_name
+```ruby
+puts "This code will be highlighted"
 ```
 
 Make sure to replace `my_app_name` above with the name of your new Rails application. The setup script has a few options, but the end result will be a new Rails application all ready to go. **So why not a normal Rails application template?** Although, Rails application templates provide a really nice feature set. It was much easier to bootstrap a new Rails application using this prototype method. The end result is a cleaner Gemfile and application setup that can be vetted and tested from within HolyGrailHarness itself.
 
 The script will rename your directory and prompt you to `cd` to that directory. Once you do that, run `rake test:all` to see that everything is working.
 
-```shell
+```bash
 $ cd ../my_app_name
 $ bundle exec rake test:all
 ```
@@ -121,7 +120,7 @@ HolyGrailHarness also has a [`spec/javascripts/spec_helper`](https://github.com/
 
 Because your CI system should run all your tests, the HolyGrailHarness has added a Rake task to the test namespace that runs the default rails test task (units, functional, integrations) then your Konacha tests.
 
-```shell
+```bash
 $ rake test:all     # Runs all Rails tests, then Konacha tests.
 ```
 
@@ -129,7 +128,7 @@ $ rake test:all     # Runs all Rails tests, then Konacha tests.
 
 TDD in style and run your tests when you hit save! Both [guard-minitest](https://github.com/guard/guard-minitest) and [guard-konacha](https://github.com/alexgb/guard-konacha) are bundled and ready to go. A basic `Guardfile` is already setup too. Unlike most, this one is split into two groups `:ruby` or `:js`. This lets you focus on either everything or a specific language for your tests.
 
-```shell
+```bash
 $ guard             # Monitor both Ruby and JavaScript tests.
 $ guard -g ruby     # Monitor Ruby tests.
 $ guard -g js       # Monitor JavaScript tests.

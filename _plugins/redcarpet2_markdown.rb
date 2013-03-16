@@ -9,18 +9,13 @@ PYGMENTS_CACHE_DIR = File.expand_path('../../_cache', __FILE__)
 FileUtils.mkdir_p(PYGMENTS_CACHE_DIR)
 
 class Redcarpet2Markdown < Redcarpet::Render::HTML
+
   def block_code(code, lang)
     lang = lang || "text"
     path = File.join(PYGMENTS_CACHE_DIR, "#{lang}-#{Digest::MD5.hexdigest code}.html")
     cache(path) do
-      colorized = Albino.colorize(code, lang.downcase)
-      add_code_tags(colorized, lang)
+      Pygments.highlight code, :lexer => lang
     end
-  end
-
-  def add_code_tags(code, lang)
-    code.sub(/<pre>/, "<pre><code class=\"#{lang}\">").
-         sub(/<\/pre>/, "</code></pre>")
   end
 
   def cache(path)
@@ -32,9 +27,11 @@ class Redcarpet2Markdown < Redcarpet::Render::HTML
       content
     end
   end
+
 end
 
 class Jekyll::MarkdownConverter
+
   def extensions
     Hash[ *@config['redcarpet']['extensions'].map {|e| [e.to_sym, true] }.flatten ]
   end
@@ -47,4 +44,5 @@ class Jekyll::MarkdownConverter
     return super unless @config['markdown'] == 'redcarpet2'
     markdown.render(content)
   end
+
 end
