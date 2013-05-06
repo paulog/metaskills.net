@@ -2,7 +2,7 @@
 layout: post
 title: Jack has_many :things
 disqus_id: /2008/09/28/jack-has_many-things/
-lastmod: 2011-12-06
+lastmod: 2011-12-06T12:00:00Z
 categories: 
   - database
   - heuristics

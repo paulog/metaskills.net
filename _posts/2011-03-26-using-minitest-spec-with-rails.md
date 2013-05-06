@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Using MiniTest::Spec With Rails
-lastmod: 2012-03-27
+lastmod: 2012-03-27T12:00:00Z
 categories: 
   - ruby-rails
 ---

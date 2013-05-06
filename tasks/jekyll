@@ -4,6 +4,6 @@
 
 env RM_STAR_SILENT=true rm -rf _site && mkdir _site && \
   be sass --scss --style compressed _sass/site.scss:resource/site.css && \
-  be jekyll && \
+  be jekyll build && \
   find _site -name "*.html" -exec tidy -config $(pwd)/tidy.conf {} \;
 

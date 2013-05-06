@@ -1,7 +1,7 @@
 --- 
 layout: post
 title: Quake Style Terminal Window on OS X
-lastmod: 2012-05-18
+lastmod: 2012-05-18T12:00:00Z
 disqus_id: /2006/06/13/quake-style-terminal-window-on-os-x/
 categories: 
   - apple-os
