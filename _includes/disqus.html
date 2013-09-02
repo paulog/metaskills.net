@@ -1,5 +1,5 @@
 
-{% if site.deploying %}
+{% if site.production %}
 <script type="text/javascript">
   var disqus_shortname = 'metaskillsnet';
   var disqus_identifier = '{% if page.disqus_id %}{{ page.disqus_id }}{% else %}{{ page.url }}{% endif %}';

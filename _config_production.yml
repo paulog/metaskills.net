@@ -1,4 +1,4 @@
-# Sync with _config.yml & _config_deploy.yml
+production: true
 timezone: America/New_York
 markdown: redcarpet
 redcarpet:
@@ -15,4 +15,3 @@ exclude:
 - public
 - tmp
 host: metaskills.net
-deploying: true

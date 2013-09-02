@@ -1,28 +1,57 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
+set -e
 
-mv _config.yml _config_dev.yml
-mv _config_deploy.yml _config.yml
+# Build the site with production config.
 
-./tasks/jekyll 
+./tasks/jekyll "_config_production.yml"
 
-mv _config.yml _config_deploy.yml
-mv _config_dev.yml _config.yml
+# Deploy Message.
 
-cd ~/Repositories/metaskills.github.com
-gco master
-gb -D master_me
+if [ $1 ]; then
+  message=$1
+else
+  echo "Fetching last commit message for deploy message..."
+  message=$(git log -1 --pretty=%B)
+fi
+echo "Using commit message:"
+echo "$message"
+
+# Preparing deploy repo.
+
+if [ ! -d ../metaskills.github.com ]; then
+  echo "No metaskills.github.com deploy repository found! Will clone adjacent to this directory..."
+  pushd ..
+  git clone git@github.com:metaskills/metaskills.github.com.git
+  cd ./metaskills.github.com
+else
+  echo "Changing to ../metaskills.github.com directory..."
+  pushd ../metaskills.github.com
+fi
+
+git checkout master
 git pull
-gco -b master_me
+git branch -D stage
+git checkout -b stage
 
-cd ~/Repositories/metaskills.net
-rsync -az --delete --exclude '.git' _site/ ~/Repositories/metaskills.github.com 
+popd
 
-cd ~/Repositories/metaskills.github.com
+# Sync to deploy repo.
+
+rsync -az --delete --exclude '.git' _site/ ../metaskills.github.com
+
+# Deploy from deploy repo.
+
+pushd ../metaskills.github.com
 git add . 
-gca -m "Automatic deploy commit."
-grbmc
 
-cd ~/Repositories/metaskills.net
-./tasks/jekyll 
+git commit -a -m "$message"
+git checkout master
+git merge stage
+git push -u origin master
+git checkout stage
 
+popd
 
+# Rebuild the development site.
+
+./tasks/jekyll

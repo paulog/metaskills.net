@@ -1,9 +1,16 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
+set -e
 
 # Create the site and tidy it.
 
-env RM_STAR_SILENT=true rm -rf _site && mkdir _site && \
-  be sass --scss --style compressed _sass/site.scss:resource/site.css && \
-  be jekyll build && \
-  find _site -name "*.html" -exec tidy -config $(pwd)/tidy.conf {} \;
+env RM_STAR_SILENT=true rm -rf _site/*
 
+sass --scss --style compressed _sass/site.scss:resource/site.css
+
+if [ $1 ]; then
+  jekyll build --config $1
+else
+  jekyll build
+fi
+
+find _site -name "*.html" -exec tidy -config $(pwd)/tidy.conf {} \;
