@@ -1,31 +1,28 @@
-#!/usr/bin/env ruby
-# Based on https://github.com/henrik/henrik.nyh.se/blob/master/tasks/post
+#!/usr/bin/env bash
 
-require 'rubygems'
+if [ -z "$1" ]; then
+  echo "Usage: provide a title argument."
+  exit -1
+else
+  title="$@"
+fi
 
+d=$(date +"%Y-%m-%d")
 
-ROOT_DIR = File.expand_path File.join(File.dirname(__FILE__), '/..')
+slug=$(echo $title | tr '[:upper:]' '[:lower:]' | tr '[:space:]' '-')
+slug="${slug:0:${#slug}-1}"
+post="./_posts/$d-$slug.md"
 
-title = ARGV[0]
-
-unless title
-  puts %{Usage: #{$0} "The Post Title"}
-  exit(-1)
-end
-
-datetime = (Time.now + 30*60).strftime('%Y-%m-%d')
-slug = title.downcase.gsub('::','-').gsub('/','-').gsub(' ','-').gsub(/&|\$|:|]/,'')
-path = "#{ROOT_DIR}/_posts/#{datetime}-#{slug}.html"
-header = %|---
+body=""
+read -d '' body <<EOF
+---
 layout: post
-title: #{title}
+title: $title
 categories: 
   - 
 ---
 
+EOF
 
-
-|
-
-File.open(path, 'w') {|f| f << header }
-system("mate", "-a", path)
+echo "$body" > $post
+subl . $post
