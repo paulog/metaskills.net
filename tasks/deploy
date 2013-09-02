@@ -23,6 +23,7 @@ if [ ! -d ../metaskills.github.com ]; then
   pushd ..
   git clone git@github.com:metaskills/metaskills.github.com.git
   cd ./metaskills.github.com
+  git checkout -b stage
 else
   echo "Changing to ../metaskills.github.com directory..."
   pushd ../metaskills.github.com
