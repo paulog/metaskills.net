@@ -3,7 +3,7 @@ set -e
 
 # Build the site with production config.
 
-./tasks/jekyll "_config_production.yml"
+./tasks/jekyll --config _config_production.yml
 
 # Deploy Message.
 
