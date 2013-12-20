@@ -6,7 +6,7 @@
   |    \  |        |          / ___|| | __(_) | | ___   _ __   ___| |_                              |
   |   |\/ |   _ \  __|   _` | \___ \| |/ /| | | |/ __| | '_ \ / _ \ __|  |  Meta Theme for Jekyll   |
   |   |   |   __/  |    (   |  ___) |   < | | | |\__ \_| | | |  __/ |_   |  ----------------------- |
-  |  _|  _| \___| \__| \__,_| |____/|_|\_\|_|_|_||___/_)_| |_|\___|\__|  |  Copyright (c) 2006-2012 |
+  |  _|  _| \___| \__| \__,_| |____/|_|\_\|_|_|_||___/_)_| |_|\___|\__|  |  Copyright (c) 2006-2014 |
   |  C o d i n g   t h i n g s   u n d e r   o t h e r   t h i n g s !!  |  By: Ken Collins         |
   +------------------------------------------------------------------------------------------------*/
 
@@ -527,7 +527,7 @@ $dsq-bubleft: 50px;
     h1 { margin-top: 30px; }
     h3 { margin-top: 15px; }
     /* pre/code */
-    p code, ul code { @include cmpnt-code; padding: 2px 5px; }
+    p code, ul code { @include cmpnt-code; padding: 2px 5px 5px 5px; font-size:16px; }
     div.highlight, pre.command, pre.code, pre.text { 
       @include cmpnt-code; 
       padding: 14px 14px 14px 14px;

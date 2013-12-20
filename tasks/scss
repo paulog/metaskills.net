@@ -1,6 +1,6 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
+set -e
 
 # Handy to watch for scss file changes while designing.
-
-be sass --scss --watch _sass:_site/resource --style compact --no-cache
-
+echo $pwd
+sass --scss --watch _sass:_site/resource --style compact --no-cache
