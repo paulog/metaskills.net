@@ -42,7 +42,7 @@ So now we have a way to instrument all of our system commands, but how do we col
 * [Datadog - Monitoring Service](http://www.datadoghq.com)
 * [Librato - Highly Scalable Metrics, Monitoring & Alerts](https://metrics.librato.com)
 
-My examples below will use Librato since I found their service extremely simple to use. I was able to quickly get metrics submitted to them and viewable via their dashboard gauges. Librato also has a very nice presence on Github and some impressive tools for Ruby. Datadog is no slouch in any of these areas either. So please use what is best fits your own needs.
+My examples below will use Librato since I found their service extremely simple to use. I was able to quickly get metrics submitted to them and viewable via their dashboard gauges. Librato also has a very nice presence on Github and some impressive tools for Ruby. Datadog is no slouch in any of these areas either. So please use what best fits your own needs.
 
 IMPORTANT: The example Rails application code that follows makes direct use of the [librato-metrics](https://github.com/librato/librato-metrics) gem. This means that submissions will happen synchronously while your application is running. You would never do this in your Rails application! If you choose to use Librato, please use the [librato-rails](https://github.com/librato/librato-rails) gem instead. Metrics are then delivered asynchronously behind the scenes so they won't affect the performance of your requests. Other possibilities would be to use background jobs or some other worker message queue.
 
