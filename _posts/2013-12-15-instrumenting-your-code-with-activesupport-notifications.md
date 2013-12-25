@@ -144,7 +144,7 @@ Hopefully these simple examples we built will help get you excited both about in
 
 * [APIdock ActiveSupport::Notifications](http://apidock.com/rails/ActiveSupport/Notifications)
 * [Digging Deep with ActiveSupport::Notifications](https://speakerdeck.com/nextmat/digging-deep-with-activesupportnotifications)
-* [Instrumentation for Subexec commands using ActiveSupport::Notifications](https://github.com/customink/subexec-notifications)
+* [Final Subexec::Notifications Gem](https://github.com/customink/subexec-notifications)
 * [Datadog - Monitoring Service](http://www.datadoghq.com)
 * [Datadog - On Github](https://github.com/DataDog)
 * [Librato - Highly Scalable Metrics, Monitoring & Alerts](https://metrics.librato.com)
