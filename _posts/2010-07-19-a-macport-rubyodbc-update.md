@@ -27,7 +27,7 @@ categories:
   This past week I started heavily exploring <a href="http://rvm.beginrescueend.com/">RVM</a> at the advice of friend while we visited the Boston.rb user grooup. As an aside, I finally feel my unix-fu is strong enough to cover the edge cases needed to get the SQL Server stack happy with RVM. Good news, but that's next weeks blog post. Anyways I found that while updating my core MacPort's rb-odbc package that +utf8 was blowing up. I am currently using MacPorts 1.9.1 and was targeting 0.99991 of RubyODBC. Here is the updated port file. To edit your current port file run <code>mate $(port file rb-odbc)</code> and paste this new one in. Details afterward.
 </p>
 
-```text
+~~~text
 # $Id: Portfile 30250 2010-07-18 02:16:17Z ken@metaskills.net $
 PortSystem    1.0
 PortGroup     ruby 1.0
@@ -54,7 +54,7 @@ variant utf8 {
   destroot.pre_args-delete  -C ext
   destroot.pre_args-append  -C ext/utf8
 }
-```
+~~~
 
 <p>
   So where did I go wrong on my old article? My first big mistake was thinking that the <code>+utf8</code> port variant was needed. Not only is it <strong>NOT NEEDED</strong>, it may not work right at all. In fact, the old Portfile in MacPorts trunk technically did not even configure/make/install the utf8 version either! Honestly â€“ I spent all day learning the MacPort's Portfile syntax and tested this. Installing that variant just breaks with an error like <code>LoadError: dlsym(0x1010cd3b0, Init_odbc): symbol not found</code>.
@@ -64,7 +64,7 @@ variant utf8 {
   So, even though my updated Portfile above now fixes that issue and supports actually building a utf8 version of RubyODBC, <strong>YOU DO NOT NEED IT!</strong> In fact the entire SQL Server stack is tested with the plain non-utf8 package and passes with flying colors. This includes passing tests where unicode columns return correctly utf8-encoded strings, among others. Though I have not tested it, I believe the utf8 version would do more damage than good. The RubyODBC documentation says it would make every string utf8 encoded. Not good for an adapter that has mixed data types. For my own personal notes, here is a diff of the Makefile below. I think the Init_odbc error was a result of a missing flag in the Makefile.
 </p>
 
-```diff
+~~~diff
 # My notes
 # +CPPFLAGS = -DHAVE_LONG_LONG
 # +CPPFLAGS = -DHAVE_VERSION_H
@@ -93,6 +93,6 @@ variant utf8 {
  DLLIB = $(TARGET).bundle
  EXTSTATIC = 
  STATIC_LIB =
-```
+~~~
 
 

@@ -48,19 +48,19 @@ categories:
   Next, we need to get the gems in our <code>Gemfile</code>. Here is how mine are setup. I have them in both the <code>:develpment</code> and <code>:test</code> groups since Jasminerice runs in both of those Rails environments. I also have that ruby_gntp dependency since I am using Growl on Mac OS X, YMMV.
 </p>
 
-```ruby
+~~~ruby
 group :development, :test do
   gem 'jasminerice'
   gem 'guard-jasmine'
   gem 'ruby_gntp'
 end
-```
+~~~
 
 <p>
   So that was easy, now on to our <code>Guardfile</code>. Here is mine below. Notice how I put my JavaScript related guards into a <code>js</code> group? This is a seldom used feature of Guard and it means I can monitor only my jasmine specs by starting guard off using <code>$ guard -g js</code> and my other guards in my <code>ruby</code> group, like minitest, will be ignored.
 </p>
 
-```ruby
+~~~ruby
 group 'js' do
 
   guard 'jasmine' do
@@ -73,7 +73,7 @@ group 'js' do
   end
 
 end
-```
+~~~
 
 <p>
   This setup assumes a few things. First that you are only testing your Spine.JS application and that those files are in the <code>app/assets/javascripts/myapp</code> directory. That myapp directory could just be <code>app</code> in your case if you used the <a href="http://github.com/maccman/spine-rails">spine-rails</a> gem without the <code>--app</code> option. In my case, that folder is named <code>homemarks</code>. This Guardfile also assumes that your JavaScript app and specs are CoffeeScript files and that specs are in the <code>spec/javascripts</code> folder specified by Jasminerice. You are going to want to follow some file naming convention now too. For example if you have a Spine.JS app file in <code>app/assets/javascripts/myapp/models/post.js.coffee</code>, then you are going to want the matching spec in <code>spec/javascripts/models/post_spec.js.coffee</code>. So saving each of those files will trigger that specific spec to run. There are also so some watchers on important root files like your spec.js sprockets manifest and your Spine.JS app index. Changing any of those files will result in your entire spec suite running again. 
@@ -86,7 +86,7 @@ end
   I will go into more details on the <code>spec_helper.js</code> and <code>jasmine-myapp</code> files above in <a href="/2012/01/17/rails-and-spine-js-jasmine-testing-part-2/">the second part</a> of this article. For now you should be set to start writing specs like the one below and seeing them run by either visiting the <code>/jasmine</code> URL of your running Rails application or by using Guard in your terminal window.
 </p>
 
-```ruby
+~~~ruby
 describe 'App', ->
   
   it 'sets el', ->
@@ -94,7 +94,7 @@ describe 'App', ->
 
   it 'sets the userId as a property on itself', ->
     expect(MyApp.Application.userId).toEqual @bob.id
-```
+~~~
 
 <p>
   <a href="/2012/01/17/rails-and-spine-js-jasmine-testing-part-2/">Continue to part two...</a>

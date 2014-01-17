@@ -24,7 +24,7 @@ $ git log | git shortlog -n -s
 
 <h2>Subversion</h2>
 
-```ruby
+~~~ruby
 #!/usr/bin/env ruby
 
 require 'rubygems'
@@ -52,7 +52,7 @@ final_report = commits_authors.map do |ca|
 end.join("\n")
 
 puts final_report
-```
+~~~
 
 
 

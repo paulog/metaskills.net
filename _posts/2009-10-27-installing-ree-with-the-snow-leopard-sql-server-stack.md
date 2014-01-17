@@ -38,7 +38,7 @@ Where would you like to install Ruby Enterprise Edition to?
   This is actually really easy. In my previous article, I talked about installing MacPorts and configure your profile. All I did this time around was add the REE path extensions after my MacPort extensions in my ZSH kit. So my path file now looks this below. If I ever want to just go back to my normal 1.8/1.9 toggle in <code>/opt/local/bin</code>, I just comment out the REE path extensions, source my profile and I'm back to my MacPort basics.
 </p>
 
-```bash
+~~~bash
 # MacPorts
 path=(/opt/local/bin /opt/local/sbin /opt/local/apache2/bin ~/.zshkit/bin $path)
 manpath=(/opt/local/share/man $manpath)
@@ -48,7 +48,7 @@ infopath=(/opt/local/share/info $infopath)
 path=(/opt/ruby-enterprise-1.8.7-2009.10/bin $path)
 manpath=(/opt/ruby-enterprise-1.8.7-2009.10/share/man $manpath)
 infopath=(/opt/ruby-enterprise-1.8.7-2009.10/share/info $infopath)
-```
+~~~
 
 <p>
   In the last guide, I mentioned how to switch between ruby 1.8/1.9 installed by MacPorts using a simple ZSH function. You can find this in my article title <a href="/2009/01/20/multiruby-the-macports-way-testing-your-rails-apps-with-ruby-1-9/">MultiRuby The MacPorts Way. Testing Your Rails Apps With Ruby 1.9</a>. I have updated this to include a condition that will noop the function if you are running REE. So to recap. I use my <code>chruby</code> function to switch between 1.8/1.9 installed by MacPorts and I use my profile extension to use REE. So what that profile change done... reload and/or open a new terminal window and test it out.

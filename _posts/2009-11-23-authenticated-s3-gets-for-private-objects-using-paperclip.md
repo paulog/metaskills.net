@@ -24,7 +24,7 @@ categories:
   The problem I see with both of these methods is that they do not allow you to maintain app control past the final URL handoff/redirect. It also requires that your S3 bucket is public. For instance, if you were to use the <code>s3_permissions => :private</code> option of Paperclip, then that URL given to you by Paperclip is pretty much worthless. I knew AWS::S3 had authenticated GETs that generated an automatically expiring URL, but saw no way of accessing its features using the abstract <code>Paperclip::Attachment</code> object. So this is what I did.
 </p>
 
-```ruby
+~~~ruby
 class MyDownload
   
   has_attached_file :attachment, 
@@ -53,7 +53,7 @@ class MyDownload
   end
   
 end
-```
+~~~
 
 <p>
   Let me walk you thru some of the highlights of that class, the general concept following is that we are going to use the best of both examples in security mentioned above. First, the secure token, that is what #set_random_secret will generate for each instance. The <code>:path</code> option for Paperclip uses a proc to make sure each instance uses that attribute in the string that will be later interpolated further down. You can also see how I use the id partition too. Next, I have added two public instance methods. The first is #attachment_url and it will need a bit of explaining.
@@ -67,7 +67,7 @@ end
   The last example method is #authenticated_s3_get_url which dips right on down to the AWS::S3 library to get the URL for the object in the bucket. AWS::S3's doc mention that it will automatically generate a secure GET url that expires in 5 minutes. However in my example, you can see where I am changing that to 10 minutes and forcing the HTTPS protocol. This would be the URL that your own controller would do the final redirect to. This URL is for your private objects in your S3 bucket and will only work for the amount of time you want it too! Meaning your app stays in complete control. Putting it all together one more time...
 </p>
 
-```ruby
+~~~ruby
 # A MyDownload instance.
 >> dl = MyDownload.find(4)
 
@@ -82,7 +82,7 @@ end
 # Your controller would redirect to this secure GET.
 >> dl.authenticated_s3_get_url
 => "https://s3.amazonaws.com/mybucket/000/000/004/147681c16fddc1e5/private.pdf?AWSAccessKeyId=0HJD3NS9CVWN2JV89K02&Expires=1258990967&Signature=8aWsq4o5gXfpIrRZyeETddnOeFw%3D"
-```
+~~~
 
 
 <h2>What Is That Noop Processor</h2>
@@ -91,7 +91,7 @@ end
   Good eye! Did you see that I have a processor called Noop in the has_attached_file declaration? The default processor in Paperclip is the Thumbnail processor, which no matter what calls the ImageMagick identify command to see if it can do something to the file. I did not want that or any processing, just simple attachments. So I created this simple processor that just straight returns the file object. I made a <a href="http://github.com/thoughtbot/paperclip/issues/#issue/118">ticket on the Paperclip's issue page</a> that hopefully would allow a <code>:processors => false</code> option one day that would do this as well. So maybe one day it'll be a feature.
 </p>
 
-```ruby
+~~~ruby
 module Paperclip  
   class Noop < Processor
     
@@ -101,7 +101,7 @@ module Paperclip
 
   end
 end
-```
+~~~
 
 
 <h2>UPDATE: Fog Example</h2>
@@ -110,7 +110,7 @@ end
   Here is an updated <code>#authenticated_s3_get_url</code> that I use with Fog as the backend storage for S3. This example illustrates 2 things. First that the bucket is named as your CNAME record which is also enforced in the <code>:fog_host</code>. I do this so that I can generate URLs via Paperclip or Fog and always have my custom domain in place. When I gsub the "s3.amazonaws.com" out, I am left with just my CNAME domain/bucket name. Lastly, if you want to generate "https" URLs, use the <code>#get_https_url</code> method.
 </p>
 
-```ruby
+~~~ruby
 class MyDownload
 
   has_attached_file :attachment, 
@@ -128,7 +128,7 @@ class MyDownload
   end
   
 end
-```
+~~~
 
 
 <h2>Resources</h2>

@@ -14,7 +14,7 @@ categories:
 </p>
 
 
-```ruby
+~~~ruby
 class MyObject
   
   constructor: ->
@@ -30,16 +30,16 @@ class MyObject
 
 jQuery ->
   window.myObject = new MyObject();
-```
+~~~
 
 <p>
   Here is a simple class using CoffeeScript's methods. It initializes itself with a static property <code>this.myDomElement</code> to some DOM element on the page with an id of "myDomElement". It then attaches an event handler to the window's resize event and logs <code>this</code> along the way. Simple stuff, the only problem will be that the object logged will not be an instance of MyObject, but the raw DOM element, in this case the window object. One way of fixing this is to use <a href="http://api.jquery.com/jQuery.proxy/">jQuery's proxy</a> function like so
 </p>
 
-```ruby
+~~~ruby
 _initBehavior: ->
   $(window).resize jQuery.proxy(@handler,this)
-```
+~~~
 
 <p>
   This works, but seems a little verbose to me and can clutter up your event initialization code. The other way is to use CoffeeScript's fat arrow operator. An <a href="http://jashkenas.github.com/coffee-script/">excerpt from their project page</a> explains it well.
@@ -53,7 +53,7 @@ _initBehavior: ->
   So all we have to do is change <code>-></code> to <code>=></code> for any of our callbacks or event handlers and now <code>this</code> is our own object and not the DOM element. Hot damn!
 </p>
 
-```ruby
+~~~ruby
 class MyObject
   
   constructor: ->
@@ -69,7 +69,7 @@ class MyObject
 
 jQuery ->
   window.myObject = new MyObject();
-```
+~~~
 
 
 

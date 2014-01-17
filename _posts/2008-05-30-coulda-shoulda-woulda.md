@@ -23,7 +23,7 @@ categories:
   Here is a simple module that you might find for any restful authentication system. This would be included in your main <code>test_helper.rb</code> file where it would add the normal login_as(user) method. The good part I want to point out is the <code>should_require_login(*actions)</code> macro method that shows off a neat example of how you could use Shoulda in your functional tests at the class level.
 </p>
 
-```ruby
+~~~ruby
 module AuthSystem
   module TestHelper
     
@@ -57,19 +57,19 @@ module AuthSystem
     
   end
 end
-```
+~~~
 
 <p>
   Here is how it would look in the controller functional test. These are all contrived examples, but I think it illustrates how Shoulda can be used and in general how you can make your own macros that test at a higher level.
 </p>
 
-```ruby
+~~~ruby
 class UsersControllerTest < ActionController::TestCase
   
   should_require_login :edit, :update, :etc
   
 end
-```
+~~~
 
 
 

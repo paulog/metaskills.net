@@ -43,26 +43,26 @@ I have no idea where I picked this up, but the general idea is to create a `task
 
 The `jekyll` wrapper script is only useful to those projects that need to perform additional steps before or after building the site. In the example below, we are cleaning up the site with `tidy`. Notice the usage of `$*` after the jekyll build command. This is akin to Ruby's reverse splat args. It allows you to send any arguments to your own script that the jekyll command would normally take.
 
-```bash
+~~~bash
 #!/usr/bin/env bash
 set -e
 
 jekyll build $*
 find _site -name "*.html" -exec tidy -config $(pwd)/tidy.conf {} \;
-```
+~~~
 
 I will cover `jekyll-livereload` and `deploy` later in this post. The [optipng](https://gist.github.com/metaskills/6414700) script is a useful command line utility that compresses assets. While the [post](https://gist.github.com/metaskills/6414713) script allows you to easily create a new post. For example:
 
-```
+~~~
 $ ./tasks/post "Jekyll Tips And Tricks"
-```
+~~~
 
 
 ## Development & Production Environments
 
 Sometimes you do not want a production feature turned on when developing your site locally. Blogs backed by [DISQUS](https://disqus.com) comments would be a great example. Likewise, maybe you want to develop a new feature that you can see during local development only to be enabled at a later time. Thanks to v1.0 of Jekyll and up, this is easy to do with different configuration files.
 
-```ruby
+~~~ruby
 # In _config.yml
 production: false
 timezone: "America/New_York"
@@ -70,20 +70,20 @@ timezone: "America/New_York"
 # In _config_production.yml
 production: true
 timezone: "America/New_York"
-```
+~~~
 
 Here we have the default `_config.yml` acting as our default development configuration. It sets the production site variable to false while the `_config_production.yml` sets it to true. Remember the `deploy` task I mentioned above? This is a great place to pass down the `--config` argument to your own jekyll task. Here is a partial example of a deploy task.
 
-```bash
+~~~bash
 #!/usr/bin/env bash
 set -e
 
 ./tasks/jekyll --config _config_production.yml
-```
+~~~
 
 Now you can write code like the following examples in your layouts or includes. Jekyll will automatically take any additional top level configurations and turn them into properties on the `site` object.
 
-```html
+~~~html
 {% raw %}
 <!-- Only show DISQUS comments in production. -->
 {% if site.production %}
@@ -101,7 +101,7 @@ Now you can write code like the following examples in your layouts or includes. 
 </section>
 {% endunless %}
 {% endraw %}
-```
+~~~
 
 
 ## Use The Asset Pipeline
@@ -112,17 +112,17 @@ But now Jekyll has the power of the asset pipeline too. Just install the [jekyll
 
 First, remember that Sprockets is built on top of a gem named Tilt which is a generic interface to multiple template engines. Installing tilt does not install template engines, so make sure to install the ones you want to work with by explicitly declaring them in your Gemfile.
 
-```ruby
+~~~ruby
 gem 'jekyll-assets'
 gem 'coffee-script'
 gem 'compass'
 gem 'sass'
 gem 'uglifier'
-```
+~~~
 
 I found the default configuration for jekyll-assets very confusing. It mimicked a production environment Rails setting. All the files used the digest as part of the file name and compression was on by default. This made it really hard to debug. So to make jekyll-assets more like Rails defaults. Use these configurations for each jekyll environment.
 
-```ruby
+~~~ruby
 # In _config.yml
 assets:
   js_compressor: 
@@ -136,7 +136,7 @@ assets:
   css_compressor: sass
   cache: _cache/assets
   cachebust: hard
-```
+~~~
 
 
 ## Pow It Up
@@ -145,14 +145,14 @@ Sure the new jekyll release has a `serve` option to boot up a web server. But li
 
 First, add both rack and rack-rewrite to your `Gemfile`.
 
-```ruby
+~~~ruby
 gem 'rack'
 gem 'rack-rewrite'
-```
+~~~
 
 Now create a `config.ru` file at the root of your project with the following contents.
 
-```ruby
+~~~ruby
 gem 'rack-rewrite'
 require 'rack/rewrite'
 
@@ -160,15 +160,15 @@ use Rack::Rewrite do
   r301 %r{^([^\.]*[^\/])$}, '$1/' 
   r301 %r{^(.*\/)$}, '$1index.html'
 end
-```
+~~~
 
 Lastly, sym link the `_site` directory of your Jekyll project to the `public`. Then symlink your Jekyll project directory to Pow as you normally would do any Rails or Rack app.
 
-```
+~~~
 $ ln -s _site public
 $ cd ~/.pow
 $ ln -s /path/to/myjekyllapp
-```
+~~~
 
 You can now access your generated site at `http://myjekyllapp.dev` via Pow.
 
@@ -201,7 +201,7 @@ Also, make sure to exclude any directories that you do not want LiveReload to mo
 
 Your mileage may vary, but here is what I have found works for me in my `jekyll-livereload` script. This forces the LiveReload sub shell script to load up rbenv again. It then uses the `--limit_posts` argument to build just the last post. I have found this quickly refreshes the browser page automatically for me while working on my latest Jekyll post in markdown.
 
-```bash
+~~~bash
 #!/usr/bin/env bash
 set -e
 
@@ -210,7 +210,7 @@ export PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$HOME/.rbenv/plugins/ruby-build
 eval "$(rbenv init -)"
 
 jekyll build --limit_posts 1
-```
+~~~
 
 <aside class="flash_warn">
   Remember turn off LiveReload while you are deploying!

@@ -12,7 +12,7 @@ categories:
   After attending Rails Edge in Reston, Virginia I decided to move some common tasks from my <code>~/.irbrc</code> file and put them into Rake. I thought I would share a task that reads and writes the ActiveRecord schema table. Sometimes in migrations this is either good to know or manually change. Simply copy this in a foo.task file in your project/lib/tasks directory and use <code>rake -T</code> to see the description and usage. I have placed these tasks in the db:version namespace.
 </p> 
 
-```ruby
+~~~ruby
 namespace :db do
   namespace :version do 
 
@@ -36,5 +36,5 @@ namespace :db do
     
   end  
 end
-```
+~~~
 

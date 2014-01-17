@@ -93,12 +93,12 @@ categories:
   That's about it, DarwinPorts is installed and ready to use. I do however like to clean things up a little bit. If you have followed my previous article <a href="/2006/03/19/getting-on-good-terms-with-the-os-x-shell/">Getting on good terms with the OS X shell</a> then you already know how to customize your <code>.bash_profile</code>, so lets fire up TextMate and do just that right now. Although DP does install a <code>.profile</code> file that will customized your <code>$PATH</code> environments, I think it's a good idea that you put this back in your control. If your new to this path stuff, they are basically just a list of directories that lets your computer know where software is installed. Keeping it that simple lets just put these lines anywhere in your <code>.bash_profile</code>.
 </p>
 		
-```bash
+~~~bash
 # My PATH Environment Variables
 export PATH="/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:$PATH"
 export MANPATH="/opt/local/share/man:$MANPATH"
 export INFOPATH="/opt/local/share/info:$INFOPATH"
-```
+~~~
 
 <p>
   You can see by the example we are simply adding other path options before your systems default, denoted by the <code>$PATH</code>. Using colons is how you separate the list and this is how we have added the MySQL installation into your system's path environment and if you ever need more, make sure to separate them too by colons and typically try to keep your default <code>$PATH</code> at the end. One last note, that <code>/opt/local/sbin</code> is in the code box above so that LightTTPD will be available to RAILS after we get it installed, more info below.

@@ -19,7 +19,7 @@ categories:
   The idea is simple, include the module and add this line to the very top of your filter chain <code>before_filter :shoot_zombies</code>. Just like in real life, if rails detects a zombie attack, it will issue a 404 not found error in the beautiful rails syntax <code>head :not_found</code>. I love it when code models the real world! Please note that there are a ton of better ways to accomplish user agent filtering, most notably, in your web server config... but that does not mean this is not a fun module to use.
 </p>
 
-```ruby
+~~~ruby
 module ZombieShotgun
   
   ZOMBIE_AGENTS       = ['Microsoft Office Protocol Discovery','Microsoft Data Access Internet Publishing Provider Protocol Discovery','FrontPage']
@@ -48,5 +48,5 @@ module ZombieShotgun
   
   
 end
-```
+~~~
 

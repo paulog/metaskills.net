@@ -22,7 +22,7 @@ categories:
   The first place we need to patch things up is Guard::Jasmine itself. In my <a href="/2012/01/17/rails-and-spine-js-jasmine-testing-part-2/">last article</a> I covered how to monkey patch Jasminerice in a <code>config/initializers/jasminerice.rb</code> file. My Guard::Jasmine freedom patch will be placed in that same file. Pasted below, this does two things vs the <a href="http://github.com/netzpirat/guard-jasmine/blob/master/lib/guard/jasmine/runner.rb">original</a>. First it changes the <code>report_specdoc_logs</code> method to not pass <code>true</code> to the <code>format_log_message</code> method. Second, the <code>format_log_message</code> method itself now has the message regular expression changed to a multi-line scan. It will also look out for a custom prefix tag and allow it to pass through. This is for our pretty objects. Anything else now outputs the message with the file and line number, something previously stripped by Guard::Jasmine.
 </p>
 
-```ruby
+~~~ruby
 # coding: utf-8
 if defined?(Jasminerice) && Jasminerice.environments.include?(Rails.env)
 
@@ -65,7 +65,7 @@ if defined?(Jasminerice) && Jasminerice.environments.include?(Rails.env)
   end
   
 end
-```
+~~~
 
 
 <h2>A JavaScript Pretty Print Library</h2>
@@ -74,7 +74,7 @@ end
   So now that we have Guard::Jasmine not stripping multi-line console messages to one line and printing file and line numbers, we are ready to hook into it. But first we need a JavaScript library that pretty prints objects for us and wrap this all up behind our own interface to <code>console.log</code>. During my research I found a library called jsDump and decided to <a href="https://github.com/NV/jsDump">use a fork of the project on github</a>. So go download that file and place it in <code>vendor/assets/javascripts/jsDump.js</code> of your Rails project. Next you will want to add it to your <code>spec/javascripts/spec.js</code> manifest like so. My below example is pulled right from my previous article and I have placed jsDump right after my jasmine files.
 </p>
 
-```javascript
+~~~javascript
 #= require jasminerice
 #= require mock-ajax
 #= require jsDump
@@ -84,7 +84,7 @@ end
 #= require_tree ./models/
 #= require_tree ./controllers/
 #= require_tree ./views/
-```
+~~~
 
 
 <h2>Logging Helpers - Using BlackCoffee</h2>
@@ -98,18 +98,18 @@ end
 </p>
 
 
-```ruby
+~~~ruby
 group :assets do
   # ...
   gem 'sprockets-blackcoffee'
 end
-```
+~~~
 
 <p>
   Finally, here are examples of my logging helpers in the <code>jasmine-myapp</code> file. The <code>myLogParser</code> uses jsDump to get back a pretty formatted string of any object if that object is not already a string. The primary logging helper <code>myLog</code> will prefix your message with <code>[myLog]</code> so the Guard::Jasmine recognizes the message and outputs only the object. The last helper <code>myLogLine</code> will do just like the other, but will allow the file and line number tobe printed too.
 </p>
 
-```ruby
+~~~ruby
 myLog = (obj) ->
   console.log "[myLog]#{myLogParser(obj)}"
 
@@ -118,7 +118,7 @@ myLogLine = (obj) ->
 
 myLogParser = (obj) ->
   if typeof obj is 'string' then obj else jsDump.parse obj
-```
+~~~
 
 
 <h2>In Practice</h2>
@@ -127,7 +127,7 @@ myLogParser = (obj) ->
   Here is an example of a Jasmine spec where I was using console.log before the patches above and what it would output to the terminal.
 </p>
 
-```ruby
+~~~ruby
 #= include spec_helper
 
 describe 'User', ->
@@ -136,7 +136,7 @@ describe 'User', ->
     @user = new User id: 2, email: 'bob@test.com'
     console.log @user.attributes()
     expect(@user.email).toEqual 'bob@test.com'
-```
+~~~
 
 <pre class="code">
 User

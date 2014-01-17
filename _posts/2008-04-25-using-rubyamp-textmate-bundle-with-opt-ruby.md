@@ -13,12 +13,12 @@ categories:
   I've been a TextMate user for a long time now and I'm still finding new things to do with it. Here recently I wanted to use the <a href="http://code.leadmediapartners.com/tools/rubyamp">RubyAMP TextMate Bundle</a> and was a little miffed to find that it was pointing to my OS X system ruby. The error message looked something like this when it went looking for my ruby/gems.
 </p>
 
-```text
+~~~text
 No such file to load -- appscript (LoadError) from 
 /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/rubygems/custom_require.rb:27:in `gem_original_requireâ€™
 /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/rubygems/custom_require.rb:27:in `requireâ€™
 ...
-```
+~~~
 
 <p>
   My problem is that I use ruby installed from MacPorts (yes I have Leopard). I do this because I put a lot of crap and extra dependencies into my opt direcotry and I do not trust Apple to NOT blow away the crazy dependencey hell I would have ended up creating in the standard bin directories if I chose not to use MacPorts. I would have thought that my <code>TM_RUBY</code> environment variable being set correctly to <code>/opt/local/bin/ruby</code> in my TextMate preferences would have given RubyAMP enough info to find my correct gem environment. Obviously not... and it took me quite a bit of digging around to learn what else I needed to do. For starters, here is more than you ever wanted to know about <a href="http://macromates.com/textmate/manual/shell_commands#search_path">how TextMate gets the $PATH information</a>. You can skip reading that and do these simple steps.

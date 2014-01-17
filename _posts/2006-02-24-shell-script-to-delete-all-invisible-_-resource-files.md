@@ -30,10 +30,10 @@ categories:
   This shell script consists of three commands. The first is the UNIX <code>find</code> command. It is told to look for all files in a directory that have a name which starts with ._ and then print them to your window. The second part of the command is called <code>xargs</code> and basically this takes each line form the first command and applies the  command immediately following it. In this case, remove, as indicated by the <code>rm</code> at the end. The <code>-t</code> after <code>xargs</code> is optional, it is useful if you are running this from your terminal since it echos the command to you before it is executed. The final shell script looks like this.
 </p>
 		
-```bash
+~~~bash
 #! /bin/bash
 find /Volumes/Your_NetworkVolume -name '._*' -print | xargs -t rm
-```
+~~~
 
 <p>
   To customize this script you will need to change &quot;<code>Your_NetworkVolume</code>&quot; where it appears above to the name of your web server share as it appears on your desktop.
@@ -55,9 +55,9 @@ find /Volumes/Your_NetworkVolume -name '._*' -print | xargs -t rm
   One last thing, in some cases you may have to delete invisible files on your web server that have spaces or special characters that might cause the script above to fail. Now why you would have files  on a web server that are non web friendsly is completely against my understanding, but if that is the case then you will have to use this modified version. It includes what I call a shielded version of the -print and xargs commands so they can understand how to escape or deal with the spaces and special characters.
 </p>
 
-```bash
+~~~bash
 #! /bin/bash
 find /Volumes/Your_NetworkVolume -name '._*' -print0 | xargs -t0 rm
-```
+~~~
 
 

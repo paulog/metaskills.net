@@ -11,7 +11,7 @@ categories:
   I made a revised version of a rake task that I have used quite often, for unloading existing DB tables into fixture data and thought I would share. This rake task is the in correct name space and adds a "rake db:fixtures:unload" command to your rails project when you put this in "lib/tasks/foo.rake". It can take an optional TABLES variable or if none is present the whole array of DB tables are converted. I find this rake task helpful when dealing with LARGE databases.
 </p> 
 
-```ruby
+~~~ruby
 namespace :db do
   namespace :fixtures do
     desc 'Create YAML test fixtures from data in specifed tables. Set table names by TABLES=foos,bars,etc'
@@ -32,5 +32,5 @@ namespace :db do
     end
   end
 end
-```
+~~~
 

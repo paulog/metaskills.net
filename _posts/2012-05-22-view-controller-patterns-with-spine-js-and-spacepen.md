@@ -43,7 +43,7 @@ categories:
   I found the <a href="https://github.com/nathansobo/space-pen">SpacePen project on github</a> a few months ago and I have never looked at another templating solution since. For the first time my JavaScript application's view and controller stacks feel natural. No longer do I find myself writing any view related code in my controllers. SpacePen allows me to write view objects that encapsulate their concerns, stay DRY and build Spine.JS web applications that hit the MVC mark. So what is SpacePen? Basically a CoffeeScript subclass of a jQuery object.
 </p>
 
-```ruby
+~~~ruby
 class SpacePort extends View
 
   @content: ->
@@ -53,21 +53,21 @@ class SpacePort extends View
         @li "Apollo"
         @li "Soyuz"
         @li "Space Shuttle"
-```
+~~~
 
-```ruby
+~~~ruby
 view = new SpacePort
 view.find('ol').append('<li>Star Destroyer</li>')
 
 view.click 'li', ->
   alert "You clicked on #{$(this).text()}"
-```
+~~~
 
 <p>
   This simple example shows how your SpacePen view class defines its markup in a <code>@content</code> class function. This function yields a builder syntax where you can easily add attributes and values. My advice is to do basic structure only in your <code>@content</code> function and rarely take advantage of the fact that it also takes the same parameters argument passed to your constructor. I will explain more on that advice later. But first, I did say that views should expose interfaces to controllers and are first class code citizens that champion their own concerns right? Let's look at a common pattern, views building new nodes within itself.
 </p>
 
-```ruby
+~~~ruby
 class SpacePort extends View
 
   @content: ->
@@ -77,12 +77,12 @@ class SpacePort extends View
 
   addShip: (ship) ->
     @shipList.append "<li>#{ship.name}</li>"
-```
+~~~
 
-```ruby
+~~~ruby
 view = new SpacePort
 view.addShip "Enterprise"
-```
+~~~
 
 <p>
   The example has been changed slightly so that the view now exposes a public function called <code>addShip()</code> which takes an object to add to the view. It can easily implement this because I have declared the ordered list to be an outlet called <code>shipList</code> which will automatically be assigned as a property on each view instance. Calling append on that node is possible because like the view object itself, any outlet is a jQuery object as well.
@@ -108,7 +108,7 @@ view.addShip "Enterprise"
   With the overview of these components out of the way, let's jump right into how they can work together to punch the VC up a notch in your next JavaScript MVC application. These examples below are pared down version of a scheduler application I just completed. The model is similar to an iCal day interface for calendar events. In such, there would be a view controller that manages the presentation of your schedule "by day". This controller's view would have a header for the current day and a set of controls for going to the previous day, today and the next day. This controller would act as a navigation controller and correlate to Apple's notion of a "container" view controller. When needed, it would find or create a day controller and append it to one of its subviews. The code for that container controller and view is out of the scope of this article, but its one of many day "content" controllers and view are perfect examples. Here we go!
 </p>
 
-```ruby
+~~~ruby
 # In app/assets/javascripts/app/controller/day.js.coffee
 
 class App.Controllers.Day extends Spine.Controller
@@ -116,9 +116,9 @@ class App.Controllers.Day extends Spine.Controller
   constructor: (params) ->
     @view = new App.Views.Day
     super el: @view
-```
+~~~
 
-```ruby
+~~~ruby
 # In app/assets/javascripts/app/views/day.js.coffee
 
 class App.Views.Day extends View
@@ -129,7 +129,7 @@ class App.Views.Day extends View
 
   initialize: (params) ->
     @attr 'data-date', params.moment.format('YYYY-MM-DD')
-```
+~~~
 
 <p>
   So rule number one, always create an instance of a SpacePen view and assign that to the <code>@view</code> property of every Spine.JS controller. That <code>@view</code> will be assigned to the controller's <code>@el</code> property when it supers up. 
@@ -145,7 +145,7 @@ class App.Views.Day extends View
   Here is the same controller and view example with a bit more detail. First up, the view. This day view CoffeeScript file has a public <code>App.Views.Day</code> view and a private <code>EventView</code> that represents a subview and would be bound to a model instance. This public day view exposes a few public functions for a controller to hook into. The <code>addEvent</code> function will actually build a new SpacePen views for the passed model and append it as a subview. Notice too the <code>findEvent</code> helper function which can find the DOM element for a model object and then use the <code>view()</code> function provided by SpacePen to get to the SpacePen instance for this node.
 </p>
 
-```ruby
+~~~ruby
 class App.Views.Day extends View
   
   @content: (params) ->
@@ -194,13 +194,13 @@ class EventView extends View
     @attr 'data-starts-at', event.startsAtFormat()
     @description.text event.description
     @duration.text event.duration
-```
+~~~
 
 <p>
   Next up, the expanded day controller example that manages the view above. In this example we bind to two of the the Spine.JS <code>CalendarEvent</code> model events. One for update and one for destroy. These events are then pushed down to the view and will do any work necessary. Just in case this controller is ever discarded for performance reasons, we hook into the <code>release()</code> function provided by Spine.JS controllers to remove the event listeners.
 </p>
 
-```ruby
+~~~ruby
 class App.Controllers.Day extends Spine.Controller
   
   @events: 
@@ -230,7 +230,7 @@ class App.Controllers.Day extends Spine.Controller
   removeEvent: (event) ->
     @view.removeEvent event
     # ...
-```
+~~~
 
 <p>
   Hope you found this mini introduction to SpacePen and Spine.JS controllers useful. There is literally tons of ways you can use these tools together to make your controllers and views fun to build and maintainable. Be excellent and let me know what works for you!

@@ -17,40 +17,40 @@ categories:
   First, bundle up the compass, but do not require it. Add this to your <code>Gemfile</code>.
 </p>
 
-```ruby
+~~~ruby
 gem 'compass', :require => false
-```
+~~~
 
 <p>
   Next, add a Sass initializer in <code>config/initializers/sass.rb</code> and fill it in with the code below. This will add two more load paths to the Sass engine. The first is your default rails/sprockets asset path for stylesheets. It simply let's you build a deep folder structure in that directory and use relative paths from each file. The second will put the entire compass Sass framework files into the Sass load path.
 </p>
 
-```ruby
+~~~ruby
 Sass::Engine::DEFAULT_OPTIONS[:load_paths].tap do |load_paths|
   load_paths << "#{Rails.root}/app/assets/stylesheets"
   load_paths << "#{Gem.loaded_specs['compass'].full_gem_path}/frameworks/compass/stylesheets"
 end
-```
+~~~
 
 <p>
   Now in your rails <code>app/assets/stylesheets/foo.scss</code> file you can use Sass' <code>@import</code> with paths to the compass framework.
 </p>
 
-```css
+~~~css
 @import "compass/css3/opacity";
 #mylogo { @include opacity(0.5); }
-```
+~~~
 
 <p>
   That is an example loading up the opacity helpers. Your generated css file will look like this! CSS is never going to be the same again!
 </p>
 
-```css
+~~~css
 #mylogo {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
   opacity: 0.5; }
-```
+~~~
 
 
 

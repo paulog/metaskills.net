@@ -19,11 +19,11 @@ categories:
   Once you bundle the gem in your Rails application, it will satisfy the <code>require "test/unit/testcase"</code> from ActiveSupport's test case. Tricking it to use MiniTest::Spec instead of MiniTest::Unit. Here is an example Gemfile that shows the usage of MiniTestSpecRails. That is all you have to do!
 </p>
 
-```ruby
+~~~ruby
 group :test do
   gem 'minitest-spec-rails'
 end
-```
+~~~
 
 
 <h2>Advantages?</h2>
@@ -43,21 +43,21 @@ end
   One thing that I try to do is to change my test assertions from the old Test::Unit style to the new MiniTest::Spec style. I commonly use this <a href="http://cheat.errtheblog.com/s/minitest/1">cheat sheet</a> to remember them. For instance:
 </p>
 
-```ruby
+~~~ruby
 # This:
 assert_not_nil @foo.bar
 
 # Would Become This:
 @foo.bar.wont_be_nil
-```
+~~~
 
 <p>
   Likewise, MiniTest::Spec is consistently getting new features added. One patch that I advocated for now allows the <code>must_be</code> and <code>wont_be</code> low-level assertions to work with a predicate method symbol. Meaning, if the symbol ends in a question mark, then it will implicitly call that mehod on the subject for truthy or falsy matching. For instance:
 </p>
 
-```ruby
+~~~ruby
 @user.must_be :valid?
-```
+~~~
 
 
 <h2>Known Issues</h2>

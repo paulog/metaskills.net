@@ -19,12 +19,12 @@ categories:
 
 <p> If you have ever tried using MySQL Administrator's backup routine, DO NOT DO IT! The program fails miserably for most users since it uses your local system account, not the DB user account associated with the database you are tying to backup. If you are reading this article because you have tried using MySQL Administrator's backup system, you may have seen a system message like this: </p>
 
-```text
+~~~text
 From: kencollins@ken-pb.local (Cron Daemon)
 To: kencollins@ken-pb.local
 Date: Mon, 19 Dec 2005 23:04:01 -0500 (EST)
 Subject: Cron <kencollins@ken-pb> "/Applications/MySQL Administrator.app/Contents/Resources/mabackup" --directory="/Users/kencollins/Desktop" --connection="localhost" --prefix="MetaDB" MetaDB
-```
+~~~
 
 <p> Before I get to that simple solution and if you are one of the unlucky that tried backups with MySQL Administrator, let's digress for a moment and clean up the work it did to your system. First, if you have not already done so, install <a href="http://webmin.com/" title="The Swiss Army Knife of Mac OS X Admin Tools">Webmin</a> . Many of my tutorials will rely on it. This is a powerful tool that runs as a bundle of PERL modules accessible via a web browser on your local machine. It allows you to administrate many underlying system events and programs on your system. <strong>DISCLAIMER: It can be somewhat hazardous if you are not familiar with what you are doing.</strong> That said, the documentation on their website has a very straight forward  help file on installing the latest version. Now to the cleanup: </p>
 
@@ -37,11 +37,11 @@ Subject: Cron <kencollins@ken-pb> "/Applications/MySQL Administrator.app/Content
 
 <p>OK, now that our system has less junk processes, to the fun part, a simple and working MySQL backup. For this task I created a really simple script. Let's take a look at it below. </p>
 
-```bash
+~~~bash
 #!/bin/bash
 timestamp="$(date -u +%Y-%m-%d_%a)"
 /usr/local/mysql/bin/mysqldump -uXXXX -pXXXX metadb > /Backups/MetaDB_${timestamp}.sql
-```
+~~~
 
 <p>There are two parts to this script, the first line sets a variable called "timestamp" in the friendliest format I can think of (YYYY-MM-DD_Day), for example 2005-12-19_Mon. The second line of this script uses the mysqldump utility, gives it a username, password, and your database name. Replace XXXX with the username and password of your database and remember, if you are calling this script from a remote machine, it must have remote access to the database name, directly after your password. The last half of the second line writes your database backup file in a directory of your choosing with a filename using the <code>${timestamp}</code> variable of the system time from line one. In this example, this will generate a file called "MetaDB_2005-12-19_Mon.sql". </p>
 

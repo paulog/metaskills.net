@@ -10,7 +10,7 @@ categories:
   Sometime in rails 2.x the #inspect method for an ActiveRecord class was changed to show you all the column names (attributes) of that class. This is fine when things are small but if your working on a big legacy schema and you want clean terse debugging, all those column names can be noisy. I just set this initializer up today to kill it. Now the class just shows the number of columns.
 </p>
 
-```ruby
+~~~ruby
 module ActiveRecord
   class Base
     class << self
@@ -30,5 +30,5 @@ module ActiveRecord
     end
   end
 end
-```
+~~~
 

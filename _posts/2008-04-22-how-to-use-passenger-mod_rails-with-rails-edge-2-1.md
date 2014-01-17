@@ -25,11 +25,11 @@ categories:
   OK... now that you know how to freeze the real rails edge to your git project, and if you have been using passenger, you may now have seen this error below. The basic problem is that passenger bypasses the work that the rails boot.rb does and in doing so, it only accounts for setting RAILS_ROOT during the ApplicationSpawner process and not the FrameworkSpawner process. In the latest rails, ActionPack is now relying on RAILS_ROOT to be set by calling Rails.root (shortcut method to that constant) when loading. So <a href="http://github.com/metaskills/passenger/commit/69afcd75425a89c9d17d1fc40c0a7571d6bd547c ">my fix was to add the RAILS_ROOT to the FrameworkSpawner class</a>.
 </p>
 
-```text
+~~~text
 Framework that failed to load: Vendor directory: /Users/foo/project/vendor/rails 
 Error message: Anonymous modules have no name to be referenced by 
 Exception class: ArgumentError 
-```
+~~~
 
 
 <h2>Resources</h2>

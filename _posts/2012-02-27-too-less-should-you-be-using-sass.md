@@ -38,7 +38,7 @@ categories:
   Some of the bugs I encountered were fixed, like parsing errors for CSS3 keyframes. Others had horrible workarounds that used more code while at the same time lowering legibility. Finally, I came across the one issue on the hundreds of those that exists on LESS' github page that stopped me cold. It was titled <a href="http://github.com/cloudhead/less.js/issues/36">variable property</a> and after learning about it, I decided to stop using LESS for my Rails projects. What are variable properties anyway. Let me show you a common pattern both I and Compass use in a basic contrived example. You may also want to read my comments in that github issue link too. Imagine I have some global colors that I want to mixin to other classes based on a dynamic property. So given this SCSS below:
 </p>
 
-```css
+~~~css
 $myWhite: rgb(240,240,240);
 $myGray:  rgb(140,140,140);
 $myBlack: rgb(30,30,30);
@@ -52,17 +52,17 @@ $myBlack: rgb(30,30,30);
 .box {
   @include myColorClasses(background-color);
 }
-```
+~~~
 
 <p>
   It would output something like the following. Notice how I use the variable string <code>background-color</code> and generate dynamic properties?
 </p>
 
-```css
+~~~css
 .box.white { background-color: #f0f0f0; }
 .box.gray  { background-color: #8c8c8c; }
 .box.black { background-color: #1e1e1e; }
-```
+~~~
 
 <p>
   Astute observers may point out that you can achieve the same with sub classes and be more efficient in the generated CSS too. You would be correct. I did say this was a contrived example. The point is that LESS is not a CSS preprocessor and without the ability to dynamically define property values you will be limited in the ways your LESS based CSS framework can compete with frameworks like Compass. Simply put, LESS will never stack up to Sass.

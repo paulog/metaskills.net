@@ -40,21 +40,21 @@ categories:
   If you have not done so already, go <a href="http://www.macports.org/install.php">download MacPorts</a> and run the installer and follow <a href="http://guide.macports.org/">their installation instructions</a>. At the time of this writing, the current version is 1.8 and has tons of new stuff for Snow Leopard. If you use bash, the default shell on OS X, then add this to your ~/.profile.
 </p>
 
-```bash
+~~~bash
 export PATH="/usr/local/bin:$PATH"
 export MANPATH="/usr/local/share/man:$MANPATH"
 export INFOPATH="/usr/local/share/info:$INFOPATH"
-```
+~~~
 
 <p>
   However, if you have <a href="http://books.google.com/books?id=jKY-rDoJx3wC&pg=PA115&lpg=PA115&dq=system+preferences+account+right+click+os+x+switch+to+zsh+default+shell&source=bl&ots=J0eyfcuH37&sig=F4MrA0-NmqeprnqEneAhAdqJBPg&hl=en&ei=FFigSs73GMqc8QaAzoDeDw&sa=X&oi=book_result&ct=result&resnum=2#v=onepage&q=system%20preferences%20account%20right%20click%20os%20x%20switch%20to%20zsh%20default%20shell&f=false">changed your default shell to ZSH</a>, then put this in your ~/.zshenv file. I highly recommend switching your default shell to ZSH.
 </p>
 
-```bash
+~~~bash
 path=(/opt/local/bin /opt/local/sbin /opt/local/apache2/bin $path)
 manpath=(/opt/local/share/man $manpath)
 infopath=(/opt/local/share/info $infopath)
-```
+~~~
 
 <h3>Important x86_64 Arch Notice</h3>
 
@@ -189,7 +189,7 @@ $ sudo port install rb-odbc +utf8
   First, let's configure FreeTDS to point to our server. Assuming you have TextMate a simple <code>mate /opt/local/etc/freetds/freetds.conf</code> should get it open for us. FreeTDS even put in a few examples at the bottom of the file, I typically comment these out and add my own. In this example I am naming my server "my_dev_server". Note that tds version section, I personally use tds version 8.0 and have tested this against my stack on all SQL Server types with the ActiveRecord tests. Some have reported that they have errors unless the use 7.0. Your mileage may vary. Save and close the file. <strong>UPDATE:</strong> As noted above when running <code>tsql I</code>, if you do not see a utf-8 locale setting, you may have to add this line <code>client charset = UTF-8</code> to your configuration file. Here is a thread on <a href="http://lists.ibiblio.org/pipermail/freetds/2006q3/020396.html">how to set tsql's client character set</a>.
 </p>
 
-```text
+~~~text
 # A typical Sybase server
 # [egServer50]
 #   host = symachine.domain.com
@@ -206,13 +206,13 @@ $ sudo port install rb-odbc +utf8
   host = 192.168.1.58
   port = 1433
   tds version = 8.0
-```
+~~~
 
 <p>
   It has been noted that Windows user may want to include client encodings and character sets that set UTF-8 values. If you are running on Windows, try out this style freetds conf.
 </p>
 
-```text
+~~~text
 [YOURSERVER]
  host             = yourserver.com
  port             = 1433
@@ -220,7 +220,7 @@ $ sudo port install rb-odbc +utf8
  text size = 64512
  client encoding  = UTF-8
  client charset   = UTF-8
-```
+~~~
 
 <p>
   So after you have added your own server here, it is now time to configure unixODBC to use FreeTDS. Let's copy the default distribution files to the correctly named ones that unixODBC will look for.
@@ -235,19 +235,19 @@ $ sudo cp /opt/local/etc/odbcinst.ini.dist /opt/local/etc/odbcinst.ini
   Open up the newly copied <code>/opt/local/etc/odbcinst.ini</code> file. More than likely, this will be the only time you ever edit this file. Add a FreeTDS configuration to it like so. No personal configuration options here, this just links up the MacPort installed unixODBC and FreeTDS.
 </p>
 
-```text
+~~~text
 [FreeTDS]
 Decscription = FreeTDS driver for SQLServer
 Driver = /opt/local/lib/libtdsodbc.so
 Setup = /opt/local/lib/libtdsodbc.so
 FileUsage = 1
-```
+~~~
 
 <p>
   So the last thing is to create some DSNs in your <code>/opt/local/etc/odbc.ini</code> file. It is very likely that you could edit this file often. Perhaps you do a lot of development and DB server changes. My personal file has over 20 some DSNs here. Here is one example. The name and description of the DSN is up to you. Take note how I made the server name "my_dev_server" line up to that used in the FreeTDS conf file. That is important. Flavor this to your tastes.
 </p>
 
-```text
+~~~text
 [my_dev_server_dsn]
 Driver=FreeTDS
 Description=My Server Connection
@@ -255,13 +255,13 @@ Servername=my_dev_server
 Server=my_dev_server
 Port=1433
 Database=killer_app
-```
+~~~
 
 <p>
   Here is an example of what your database.yml will look like. So by now you should be able to connect and work with your database. I have this working on quite a few Macs. If you found any issues, let me know, but a good place to start is running the adapter tests. That is of course if you have the stack setup right.
 </p>
 
-```text
+~~~text
 development:
   adapter: sqlserver
   mode: ODBC
@@ -269,7 +269,7 @@ development:
   password: secret
   database: killer_app
   dsn: my_dev_server_dsn
-```
+~~~
 
 
 
@@ -359,11 +359,11 @@ $ sudo gem install mysql -- --with-mysql-config=/opt/local/bin/mysql_config5
   Nice, fully 64-bit and passing all the ActiveRecord tests for me. Note, sometimes you will have to reset your shell for new path binaries to become usable. It's always a good idea to open a new shell post a port install If you get an unfound <code>mysql_install_db5</code>, try opening a new shell. Pay attention to some of the output from that command too. For instance, if you want to set a root user password. I choose not to do this for a dev DB, but I do like to limit the connections so that only local connections can be used by editing the conf file. To create yourself a my.cnf file, copy one of the templates in <code>/opt/local/share/mysql5/mysql</code>, I choose to copy the large conf like so <code>sudo cp /opt/local/share/mysql5/mysql/my-large.cnf /opt/local/etc/mysql5/my.cnf</code>. Then I edit the conf file and uncomment the link that says "skip-networking". That way no one on the local network can hit my DBs. Lastly, here are some helpful aliases that I use.
 </p>
 
-```bash
+~~~bash
 alias my_stop="sudo launchctl stop org.macports.mysql5"
 alias my_start="sudo launchctl start org.macports.mysql5"
 alias my_rs="my_stop ; my_start"
 alias myconf="mate /opt/local/etc/mysql5/my.cnf"
-```
+~~~
 
 

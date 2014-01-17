@@ -37,7 +37,7 @@ sudo ln -s /System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resour
   <img src="/assets/jsc_tmbundle.gif" alt="TextMate Bundle Window" width="520" class="shadow" />
 </div>
 
-```ruby
+~~~ruby
 #!/usr/bin/env ruby
 
 require ENV['TM_SUPPORT_PATH'] + '/lib/escape.rb'
@@ -50,7 +50,7 @@ def terminal_script_filepath
 end
 
 open("|osascript", "w") { |io| io << terminal_script_filepath }
-```
+~~~
 
 <p>
   With that simple bundle command done, you can now use the <code>Command-R</code> keyboard shortcut to load the windows JavaScript file into a newly opened terminal window running in the SFX console. Pictures below.

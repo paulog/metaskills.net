@@ -42,23 +42,23 @@ $ git submodule add git://github.com/maccman/spine.git vendor/assets/javascripts
   This adds the Spine project to your <code>vendor/assets/javascripts/spine</code> directory. Which means it can now be leveraged by Rails asset pipeline using Sprockets. So if you had used the spine-rails generator above and had your spine requires in <code>app/assets/javascripts/app/index.js.coffee</code>, you would now be able to change what should have looked like this:
 </p>
 
-```ruby
+~~~ruby
 #= require spine
 #= require spine/manager
 #= require spine/ajax
 #= require spine/route
-```
+~~~
 
 <p>
   To something like the following. Since the <code>spine/src</code> directory is where the source CoffeeScript files from our submodule above and Sprockets will render these just fine, it all just works!
 </p>
 
-```ruby
+~~~ruby
 #= require spine/src/spine
 #= require spine/src/manager
 #= require spine/src/ajax
 #= require spine/src/route
-```
+~~~
 
 <p>
   So now you can easily update your Spine dependency using a simple git workflow with the added benefit that you can open up any of the source CoffeeScript files and learn Spine from the inside out. You can even change the source or put in console debugging to see what is happening and your application files will recompile via Sprockets on the next request.

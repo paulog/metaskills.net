@@ -19,14 +19,14 @@ Our goal will be to build a new gem called subexec-notifications that instrument
 
 Lucky for us, the Subexec gem has one interface, the `Subexec#run!` method. So our work is going to be straight forward. All we have to do is [alias method chain](http://erniemiller.org/2011/02/03/when-to-use-alias_method_chain/) that instance method and wrap it with some instrumentation. Assuming you are up to speed on this practice, here is our new implementation.
 
-```ruby
+~~~ruby
 def run_with_notifications!
   payload = {sub: self, hostname: Socket.gethostname}
   ActiveSupport::Notifications.instrument "subexec.run", payload do
     run_without_notifications!
   end
 end
-```
+~~~
 
 This small snippet of code exemplifies how simple it is to instrument our code. The Notifications instrument class method takes two arguments, a string for the name and an optional payload hash. The name will be used by subscribers and the payload hash can contain anything you want. 
 
@@ -51,22 +51,22 @@ IMPORTANT: The example Rails application code that follows makes direct use of t
 
 Assuming we have a Rails application that makes use of MiniMagick, Subexec or both, all we have to do now is bundle up our new notification gem along with librato-metrics.
 
-```ruby
+~~~ruby
 # In Gemfile
 
 gem 'subexec-notifications'
 gem 'librato-metrics'
-```
+~~~
 
 Now we need to subscribe to the `subexec.run` events that we instrumented in the subexec-notifications gem. For a Rails application, this is best done in an initializer named after the gem.
 
-```ruby
+~~~ruby
 # In config/initializers/subexec_notifications.rb
 
 ActiveSupport::Notifications.subscribe 'subexec.run' do |*args|
   Subscribers::SubexecLibrato.new(*args)
 end
-```
+~~~
 
 
 ## Publishing Metrics
@@ -75,7 +75,7 @@ As you can see in the code above, subscribing to an event will yield an array of
 
 To accomplish this in one place for our publishing code, I created a simple base class for all our subscribers to inherit from. This base class creates our `event` object as well as a `process` method that subclasses must implement.
 
-```ruby
+~~~ruby
 # In app/models/subscribers/base.rb
 
 module Subscribers
@@ -94,11 +94,11 @@ module Subscribers
 
   end
 end
-```
+~~~
 
 Now to the fun part, sending some metrics to Librato. Below is the full implementation of our `SubexecLibrato` event consumer. This creates two different types of metrics. One for each command/binary that was run and the other for the host the commands are run on. Each of these metrics will allow us to build some interesting gauges. The Librato site has a great developer section titled [What Are Metrics](http://dev.librato.com/v1/metrics) that can guide you on what type of data you may want to submit.
 
-```ruby
+~~~ruby
 # In app/models/subscribers/subexec_librato.rb
 
 module Subscribers
@@ -116,7 +116,7 @@ module Subscribers
 
   end
 end
-```
+~~~
 
 ## Viewing Metrics
 

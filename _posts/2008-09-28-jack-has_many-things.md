@@ -41,13 +41,13 @@ categories:
 
 <p>First we need to install the gem. So bundle up in your Gemfile.</p>
 
-```ruby
+~~~ruby
 gem 'grouped_scope', '~> 3.1.0'
-```
+~~~
 
 <p>Now let's open up our people schema and the Person model, so Jack can share. First we add a group_id column to the people table.</p>
 
-```ruby
+~~~ruby
 class PeopleCanChooseAGroup < ActiveRecord::Migration
   def up
     add_column :people, :group_id, :integer
@@ -56,11 +56,11 @@ class PeopleCanChooseAGroup < ActiveRecord::Migration
     remove_column :people, :group_id
   end
 end
-```
+~~~
 
 <p>Next we declare grouped_scope on a few associations.</p>
 
-```ruby
+~~~ruby
 class Person < ActiveRecord::Base
   has_many :things
   has_many :acquaintances
@@ -73,15 +73,15 @@ end
 
 @jack.update_attribute :group_id, 1
 @bob.update_attribute :group_id, 1
-```
+~~~
 
 <p>
   So now every Person object in our app is now ready to share their <code>:things</code> and their <code>:problems</code>. I have also just arbitrarily put Jack and Bob into the same group. Declaring <code>grouped_scope</code> in the model generates a new <code>group</code> instance method that will allow us to either reflect on the group or delegate to the associations we have declared as now haveing grouped scope.
 </p>
 
-```ruby
+~~~ruby
 @jack.group   # => [#<Person id: 1, name: "Jack", group_id: 1>, #<Person id: 2, name: "Bob", group_id: 1>]
-```
+~~~
 
 
 <h2>We all started seeing things differently.</h2>
@@ -90,14 +90,14 @@ end
   The object returned by the group method, is an instance of <code>GroupedScope::SelfGrouping</code>. It is far cooler than you think. It looks and acts as an enumerable array, but in reality it is a <code>ActiveRecord::Relation</code> object that can delegate to generated grouped association reflections which mimic their originals. Essentially giving the group access to all associated objects of its members, in this case their <code>:things</code> and <code>:problems</code>. Did I loose you? 
 </p>
 
-```ruby
+~~~ruby
 @jack.problems.size   # => 6
 @bob.problems.size    # => 2
 
 @bob.group.problems        # => [#<Problem...>,#<Problem...>,#<Problem...>,#<Problem...>,....]
 @bob.group.problems.size   # => 8
 @jack.group.problems.size  # => 8
-```
+~~~
 
 <p>
   Without going into the detail of Jack's and Bob's problems, we can see that within the group, they are all shared. This is what the GroupedScope gem is really all about. It allows existing has_many associations to be called on the group which changes the SQL generated to be owned by the group, essentially from <code>id = 1</code> to <code>id IN (SELECT id FROM people WHERE group_id = 1)</code>.
@@ -107,7 +107,7 @@ end
   The way it accomplishes this is pretty sweet. GroupedScope creates reflections that use a custom association scope method which uses a little Arel magic to build predicate conditions. Since it copies all your existing association reflection options, it can be really smart by maintaining all the logic in the existing association. So options like <code>:class_name</code>, <code>:foreign_key</code>, <code>:though</code>, and <code>:extend</code> will just work! It also lets you chain scopes existing scopes or use your custom association extensions on the original associations. Here is very contrived example:
 </p>
 
-```ruby
+~~~ruby
 class Person < ActiveRecord::Base
   has_many :mental_issues, :class_name => "MentalState", :foreign_key => :name do
     def dangerous
@@ -122,7 +122,7 @@ class MentalState < ActiveRecord::Base
 end
 
 @jack.group.mental_issues.dangerous.treatable_by(@doctor) # => [#<MentalState...>,#<MentalState...>]
-```
+~~~
 
 
 <h2>This is probably one of those "cry for help" things.</h2>

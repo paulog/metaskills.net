@@ -19,7 +19,7 @@ categories:
   I have used this RVM hook below for awhile now. It automatically sets and unsets the proper ENV vars to GC tunes my REE. I have now updated it to apply the same GC settings to my newly patched 1.9.2 as well. I recommend this go into <code>~/.rvm/hooks/after_use</code>. 
 </p>
 
-```bash
+~~~bash
 case "$rvm_ruby_string" in
   *ree*|*ruby-1.9.2*)
     export RUBY_HEAP_MIN_SLOTS=1000000
@@ -33,7 +33,7 @@ case "$rvm_ruby_string" in
     unset RUBY_HEAP_MIN_SLOTS RUBY_HEAP_SLOTS_INCREMENT RUBY_HEAP_SLOTS_GROWTH_FACTOR RUBY_GC_MALLOC_LIMIT RUBY_HEAP_FREE_MIN RUBY_FREE_MIN
   ;;                                                                                                                                                                                                                                                                                                                        
 esac
-```
+~~~
 
 
 

@@ -20,9 +20,9 @@ categories:
   So maybe you have an old Mephisto install that you would like to migrate to Jekyll? If so, I have <a href="https://gist.github.com/756111">posted a gist</a> of some rails 3 models that I used to export my data from MySQL to static files following the format required by Jekyll. Simply populate a new rails 3 project with these, fire up a console and do <code>Site.export_jekyll</code>. This will create a folder in <code>tmp/jekyll_posts</code> and write a file for each Mephisto article. The posts will contain the YAML front matter for jekyll and hopefully a good starting point of the categories you had assigned to that post. As a bonus, the export will create a <code>tmp/jekyll_posts/rewrites.txt</code> file that will be very useful to include in a .htaccess file of your jekyll project. An example below.
 </p>
 
-```apache
+~~~apache
 RewriteRule ^2010/8/19/how-to-clean-a-campfire-room-of-uploads$ /2010/08/19/how-to-clean-a-campfire-room-of-uploads/ [L]
-```
+~~~
 
 <p>
   Also included in the gist is a <code>Site.export_jskit</code> method that will generate an XML file of  your comments to import into Disqus. Though I was able to import my Mephisto comments into Disqus and see them linked from the admin interface, I have yet to get them to show up on the new site. I have a support request open with Disqus and will update this article and the gist with any new information.
@@ -39,7 +39,7 @@ RewriteRule ^2010/8/19/how-to-clean-a-campfire-room-of-uploads$ /2010/08/19/how-
   Like many others, I have created a tasks directory in my project root with some executable scripts that help me author, publish and deploy my site. Here are some examples.
 </p>
 
-```bash
+~~~bash
 #!/usr/bin/env zsh
 # File: tasks/scss
 # Handy to watch for scss file changes while designing.
@@ -60,7 +60,7 @@ rm -rf _site/* && \
 ./tasks/jekyll && \
   rsync -avz --delete _site/ mini:/Library/WebServer/hosts/metaskills.net && \
   mini sudo apachectl restart
-```
+~~~
 
 <p>
   The first one, <code>task/scss</code> allowed me to author my site's CSS using <a href="http://sass-lang.com/">SASS</a> and its newer SCSS syntax, more on that later. This task simply let me publish my site and then style it later by easily saving the source SCSS file and avoiding a long running jekyll command. The second <code>task/jekyll</code> is my own long winded jekyll command. Basically it will compile my SCSS file, execute my bundled jekyll binary, then post process all my HTML files with tidy. I spent a long time coming up with <a href="https://github.com/metaskills/metaskills.net/blob/master/tidy.conf">an appropriate tidy.conf compatible with HTML5 standards.</a> Perhaps you may find it useful. Lastly, the <code>task/deploy</code> is just a simple wrapper to my own jekyll command and a final rsync command to my Mac Mini web server. I restart the web server just in case I have made changes to my <code>.htaccess</code> file.
@@ -73,7 +73,7 @@ rm -rf _site/* && \
   A personal tech blog is a great platform to try out new things, including the semantic goodness that HTML5 offers. Frankly, it was way past time for me to learn and I found <a href="http://diveintohtml5.org/">Mark Pilgrim's - Dive Into HTML5</a> really helpful on the topic. The final structure of the blog came out nicely. A post is contained in its own <code>&lt;article&gt;</code> element with <code>&lt;header&gt;</code> and <code>&lt;footer&gt;</code> elements in between. A great way to organize comments and new elements like the <code>&lt;time&gt;</code> so you can associate a machine readable publication date to your post.
 </p>
 
-```html
+~~~html
 <article id="post">
   <header>
     <time pubdate datetime="{{ page.date | date_to_xmlschema }}">
@@ -88,7 +88,7 @@ rm -rf _site/* && \
     ...
   </footer>
 </article>
-```
+~~~
 
 
 <h2>Presentation - SASS</h2>
@@ -113,7 +113,7 @@ rm -rf _site/* && \
   Back in the day, I would put my layout styles at the beginning of my stylesheet, then finish with abstract presentation classes. This works, but sometimes you find yourself deep into a CSS corner and having to whip out <code>!important</code> declarations to bail yourself out. When writing with SASS, the layout styles are now my last declarations. Why? Because you can include your earlier coded design components as a last step within the structure declarations, thereby ensuring their scope is locked down to the explicit node of your choosing. This helps you keep your layout and presentation CSS in separate and manageable chunks that have logical names while keeping your SASS file from looking like one big long procedural function. It's OO-CSS at its best!
 </p>
 
-```text
+~~~text
 ...
 section#page { 
   width: $pagewidth; 
@@ -131,7 +131,7 @@ section#page {
     @include cmpnt-blockquote;
   }
 ...
-```
+~~~
 
 
 <h2>Presentation - Simple Grid</h2>
@@ -140,7 +140,7 @@ section#page {
   I have previously used CSS grids like <a href="http://960.gs/">960.gs</a> and the <a href="http://www.1kbgrid.com/">1Kb Grid</a>. However, for this project, I decided to flex SASS and my previous CSS knowledge of positioning and clearing for a leaner layout structure. These SCSS variables were enough to let me build out the new layout.
 </p>
 
-```ruby
+~~~ruby
 $cols: 10;
 $colwidth: 80px;
 $gutterwidth: 20px;
@@ -155,12 +155,12 @@ $c8width:  ($colwidth * 8) + ($gutterwidth * 7);
 $c9width:  ($colwidth * 9) + ($gutterwidth * 8);
 $c10width: ($colwidth * 10) + ($gutterwidth * 9);
 $pagewidth: ($colwidth * $cols) + ($gutterwidth * ($cols - 1));
-```
+~~~
 
 
 <h2>Presentation - Pseudo Generated Content</h2>
 
-```html
+~~~html
 <div class="photobounding">
   <div class="tl"></div>
   <div class="tr"></div>
@@ -171,7 +171,7 @@ $pagewidth: ($colwidth * $cols) + ($gutterwidth * ($cols - 1));
     <img src="/files/yourpicture.jpg" alt="" width="" height="" />
   </div>
 </div>
-```
+~~~
 
 <p>
   We have all seen code like this! It is called divitis, the overuse of span or div elements to structure and style content. I am guilty of doing this too, in fact, that code is from my old blog's CSS convention page to make a fancy border around a photo. The new MetaSkills.net takes advantage of a pseudo generated content to style complex elements and avoid this. <span class="photofancy floatr mt20 mb10 ml20"><img src="/assets/jack.png" alt="Jack Has Many Things" width="320" height="214" /></span> I would like to show you a few examples, but first, learn from the master <a href="http://twitter.com/#!/necolas">Nicolas Gallagher</a> (@necolas) in a series of articles he published for <a href="http://nicolasgallagher.com/multiple-backgrounds-and-borders-with-css2/">backgrounds/borders</a>, <a href="http://nicolasgallagher.com/pure-css-speech-bubbles/">speach bubbles</a>, and <a href="http://nicolasgallagher.com/pure-css-gui-icons/">GUI icons</a> all using pseudo generated content with CSS.

@@ -23,7 +23,7 @@ categories:
   <li>Finally a LightTPD declaration for spawning FastCGI process for PHP.</li>
 </ul>
 
-```c
+~~~c
 simple-vhost.server-root      = "/Library/WebServer/hosts/"
 simple-vhost.default-host     = "default"
 
@@ -82,7 +82,7 @@ $HTTP["host"] =~ "^(metaskills.net)|(www.metaskills.net)$" {
                                     )
                                   )
 }
-```
+~~~
 
 <p>
   Obviously this configuration is dependant on php-fcgi being installed and If you followed along in my past <a href="/2006/05/29/my-own-soup-to-nuts-recipe-for-ruby-on-rails-on-os-x/">Soup to Nuts Recipe for Ruby on RAILS on OS X</a>, here is a few crib notes I kept on how to recompile a few things so that you can have your whole installation of LightTPD, Ruby, PHP, and MySQL all running from the Darwin Ports /opt directory.
@@ -168,9 +168,9 @@ $ sudo cp /opt/local/etc/php.ini-recommended /opt/local/etc/php.ini
   Now add this line of code to the php.ini file somewhere at the end of the section called "Paths and Directories" that is about mid way down. See also this <a href="http://trac.lighttpd.net/trac/wiki/TutorialLighttpdAndPHP">web page</a> for more info on this.
 </p>
 
-```php
+~~~php
 cgi.fix_pathinfo = 1
-```
+~~~
 
 
 

@@ -40,7 +40,7 @@ categories:
 </p>
 
 
-```ruby
+~~~ruby
 # In: config/initializers/jasminerice.rb
 
 module Jasminerice
@@ -67,7 +67,7 @@ module Jasminerice
   end
   
 end if defined?(Jasminerice) && Jasminerice.environments.include?(Rails.env)
-```
+~~~
 
 <p>
   There we go, a simple example pulled from my current project. What we are doing here is freedom-patching that spec controller's index action to render both a template and layout from your application. I also have a <code>MyApplication</code> module which I include in the <code>Jasminerice::ApplicationHelper</code> for a few methods that my application view code would expect. In this case a <code>current_user</code> method and some delegation of URL helpers to the root Rails application. Do not get hung up on what user is returned there too. It is mostly moot as all AJAX calls will be stubbed. Lastly, I made a <code>jasminerice?</code> view helper and a matching one that I have in my own <code>ApplicationHelper</code> which returns false. I will show why and how this all fits together later on.
@@ -77,7 +77,7 @@ end if defined?(Jasminerice) && Jasminerice.environments.include?(Rails.env)
   Now that we have full control and some reflection for Jasminerice, let's reviw our appliation's main layout. Here is an example of my <code>app/views/layouts/application.html.haml</code> file.
 </p>
 
-```ruby
+~~~ruby
 !!! 5
 %html{:lang => 'en'}
   %head
@@ -93,21 +93,21 @@ end if defined?(Jasminerice) && Jasminerice.environments.include?(Rails.env)
       %script jQuery(function(){ MyApp.App.Home.init(); });
   %body
     %section{id: 'app', data: {id: current_user.id}}
-```
+~~~
 
 <p>
   It is really that simple! It has a single condition that says if Jasminerice is loading this page, use the top level <code>spec</code> CSS and JavaScript asset manifest. If not, render my main application's CSS and JavaScript manifests. You will also notice that I decouple my Spine's application initialization from the main JS files and only initialize the app on page load when not running in Jasminerce. This allows us to stub AJAX calls in specs then initialization the Spine.JS app when we are fully ready. So now, let us take a look at what both the <code>spec/javascripts/spec.css</code> and <code>spec/javascripts/spec.js</code> manifests may look like.
 </p>
 
-```css
+~~~css
 /*
  *= require jasmine
  *= require application
  */
 .jasmine_reporter { display: none; }
-```
+~~~
 
-```javascript
+~~~javascript
 #= require jasminerice
 #= require mock-ajax
 #= require application
@@ -116,7 +116,7 @@ end if defined?(Jasminerice) && Jasminerice.environments.include?(Rails.env)
 #= require_tree ./models/
 #= require_tree ./controllers/
 #= require_tree ./views/
-```
+~~~
 
 <p>
   These should be self explanatory. The <code>spec.css</code> manifest requires the jasmine styles, then our application's styles. It then hides the Jasmine reporter element. The <code>spec.js</code> manifest does something similiar, It first requires the jasminerice manifest, a Jasmine helper called <a href="https://github.com/pivotal/jasmine-ajax">jasmine-ajax</a> but poorly named mock-ajax, then your application's JavaScript followed by a personal Jasmine helper that we will discuss later. The last lines include all the spec files in each of the lib, models, controller and views directories located in the parent <code>spec/javascripts</code> directory.

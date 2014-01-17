@@ -22,7 +22,7 @@ categories:
 </p>
 
 
-```javascript
+~~~javascript
 /*
 
 Author:
@@ -125,13 +125,13 @@ var Quickie = Class.create({
   }
 
 });
-```
+~~~
 
 <p>
   If you ask me this is far cleaner than the original. It encapsulates factory methods and all the initialize does is just setup vars, not do ALL the work in one big procedural way. So what does this class do? It's simple, it allows you to create JavaScript objects that will represent DOM objects for QuickTime movies. This object can be passed to any method that takes expects and element to Prototype since it has a toElement method. Here is the way I am using it in my upcoming project. Just like the Tapbots website, I am creating <code><div></code> tags that have all the attributes I need and are the container elements. On page load, I update all those containers with generate QuickTime source code. See the example below.
 </p>
 
-```javascript
+~~~javascript
 /* 
 Example Container
 <div id="mymovie_container" class="quicktime_video" rel="src=/video/mymovie.mov|width=280|height=393|loop=true|autoplay=true|video_id=mymovie"></div>
@@ -158,7 +158,7 @@ document.observe('dom:loaded', function(){
     container.update(qt);
   });
 });
-```
+~~~
 
 
 <h2>Resources</h2>

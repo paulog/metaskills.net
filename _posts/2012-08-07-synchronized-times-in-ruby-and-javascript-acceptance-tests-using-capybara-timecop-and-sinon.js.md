@@ -55,28 +55,28 @@ categories:
   These file snippets below assume you have an <code>integration.js</code> manifest which includes both a vendored Sinon.JS then a sub file which actually initializes Sinon.JS for our integration test run. In this case below, we are first processing a CoffeeScript file with ERB and then initializing Sinon.JS' fake timers to a default time. In my case, this is 8:30am central standard time. Now we can assure that Capybara's browser engine will be frozen at that time and ready to move forward for each test.
 </p>
 
-```javascript
+~~~javascript
 // File app/assets/javascripts/integration.js
 
 //= require sinon-1.4.2
 //= require integration/sinon
 //= require application
-```
+~~~
 
-```coffeescript
+~~~coffeescript
 # File app/assets/javascripts/integration/sinon.js.coffee.erb
 
 <% central = ActiveSupport::TimeZone['Central Time (US & Canada)'] %>
 <% today = central.parse('8:30am').to_i * 1000 %>
 
 window.clock = sinon.useFakeTimers <%= today %>
-```
+~~~
 
 <p>
   Now, the Ruby code. Here is slimmed down version of my base integration test case which <a href="/2011/03/26/using-minitest-spec-with-rails/">uses MiniTest::Spec</a> to drive Capybara tests. The first thing I do before any integration test is use Timecop to travel to 8:30am. This means that both Ruby and JavaScript are synced to the exact millisecond in time. Any test that needs to move time forward must call the <code>#advance_time</code> test helper. This method takes a hash of options which is passed directly to the <code>#advance</code> method I previously talked about. It measures the milliseconds between now and the advancement and sends that directly to Sinon.JS' fake timers using Capybara's <code>#execute_script</code> method. So calling <code>advance_time(seconds:20)</code> in Ruby now moves time forward in both Ruby and JavaScript. Epic win!!!
 </p>
 
-```ruby
+~~~ruby
 # File test/test_helper_integration.rb
 
 require "test_helper"
@@ -113,7 +113,7 @@ module ActionDispatch
   end
 
 end
-```
+~~~
 
 <p>
   I have found the following technique critical to fully testing a recent time based JavaScript application I have developed. I hope you find this technique useful as well and as always, please contribute your thoughts or questions below. Cheers!

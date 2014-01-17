@@ -1,8 +1,13 @@
 production: false
 timezone: America/New_York
-markdown: redcarpet
-redcarpet:
-  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "strikethrough", "lax_spacing", "superscript", "with_toc_data"]
+markdown: kramdown
+kramdown:
+  use_coderay: true
+  coderay:
+    coderay_wrap: div
+    coderay_line_numbers: 
+    coderay_tab_width: 2
+    coderay_css: class
 permalink: /:year/:month/:day/:title
 exclude:
 - Gemfile

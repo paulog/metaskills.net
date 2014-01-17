@@ -21,7 +21,7 @@ categories:
   So jQuery is the proper winner and choice for anyone wanting to use a JavaScript framework to make working with the DOM in web sites easier. It has awesome event handling and delegation. So many things that Prototype.js lacked. It even has great documentation. About the only bad thing about jQuery is the widely different interfaces to it's AJAX functions and the arguments passed to their callbacks. Oh, and they totally screwed new JavaScript developers by not sheperding them into learning some sort of way to encapsulate their object behavior. So this article is for those that are not using <a href="http://jashkenas.github.com/coffee-script/">CoffeeScript's class system</a>, <a href="http://documentcloud.github.com/backbone/">Backbone.js's class system</a>, or jQuery's deeply nested plugin class system that is hidden away. So lets get to fixing that. Here is 32 lines of dirt simple JavaScript inheritance.
 </p>
 
-```javascript
+~~~javascript
 /* Simple JavaScript Class
    By John Resig. MIT Licensed. <http://ejohn.org/blog/simple-javascript-inheritance/> */
 (function(){
@@ -56,13 +56,13 @@ categories:
     return JQClass;
   };
 })();
-```
+~~~
 
 <p>
   It is <a href="http://ejohn.org/blog/simple-javascript-inheritance/">worth reading the comments</a> John Resig's blog post for this piece of work as well as the full documentation. My code example above names this <code>JQClass</code> to avoid namespace collisions with other frameworks. Here is a simple example of its usage.
 </p>
 
-```javascript
+~~~javascript
 // Your namespace.
 
 var MyApp = {
@@ -95,7 +95,7 @@ MyApp.models.flash = JQClass.extend({
   }
   
 });
-```
+~~~
 
 
 <p>

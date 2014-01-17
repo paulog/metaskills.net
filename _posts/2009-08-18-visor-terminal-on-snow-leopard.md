@@ -18,7 +18,7 @@ categories:
   First, you are going to need a copy of the Terminal.app from Leopard. I have <a href="http://cdn.metaskills.net/VisorTerminal.zip">provided a copy</a> in the resources section below. This copy has a few key things changed in the app's Info.plist file. First I have changed the bundle identifiers and display names to VisorTerminal. This is how we are going to scope visor to use this particular app. It also allows us to set things like the LSUIElement to 1 so that this app does not show in the dock. A summary of the changes I made are below, all these are done already in the download file I provide. If you want to do these on your own copy of Leopard's Terminal.app then just right click on the app, show package contents, and edit the Info.plist file. Remember to rename the app to VisorTerminal.app.
 </p>
 
-```html
+~~~html
 <key>CFBundleDisplayName</key>
 <string>VisorTerminal</string>
 ...
@@ -30,13 +30,13 @@ categories:
 ...
 <key>LSUIElement</key>
 <string>1</string>
-```
+~~~
 
 <p>
   Now we need to edit the installed <code>~/Library/Application Support/SIMBL/Plugins/Visor.bundle</code> so that it focuses on the old Leopard's terminal app (now VisorTerminal.app). Again right click on it and show the package contents, here is the complete plist below. You can see where I changed 3 places to VisorTerminal.
 </p>
 
-```html
+~~~html
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -84,7 +84,7 @@ categories:
   </array>
 </dict>
 </plist>
-```
+~~~
 
 <p>
   Now when you launch VisorTerminal, it will be hidden from the dock and be the app that Visor.bundle focuses on. I really like how this app is removed from the doc too. More so I am just stoked it is working in Snow Leopard. As a last step, yoyou can add this to your login items so that it opens up automatically. I have found that it is a bit sticky when it first launches, but a few clicks in and out on first launch fixes that. One last note, I found it is easier to edit the custom properties for this terminal window like it's default color, font size, etc, if I turn off the LSUIElement.

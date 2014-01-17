@@ -10,7 +10,7 @@ categories:
   On December 1st, Heroku <a href="http://blog.heroku.com/archives/2010/12/1/bundles-deprecation/">deprecated their bundles add-on</a> in favor of <a href="http://blog.heroku.com/archives/2010/11/16/pgbackups/">their new PG Backups</a>. Even though there are <a href="http://groups.google.com/group/heroku/browse_thread/thread/25402694098d393a">other solutions</a> for automating backups using this new add-on, none of them met my needs. I like to have a daily DB backup history, just in case you find something bad that happened "n" days earlier. Below is a simple rake task suitable to place in your rails <code>lib/tasks/heroku.task</code> file. I'll explain some things I learned below when writing this.
 </p>
 
-```ruby
+~~~ruby
 require 'heroku'
 require 'heroku/command'
 
@@ -68,7 +68,7 @@ end
 def heroku_existing_backup?(info)
   info !~ /no backups/i
 end
-```
+~~~
 
 
 <p>
@@ -83,13 +83,13 @@ end
   Lastly, since I could not find a way to automate this on Heroku via their cron add-on, I simply added a <code>launchd</code> plist to my desktop Mac that hit a shell script in my project folder to run the rake task. It is way past my skills to try and get RVM to work in the <code>launchd.plist</code> system since it is not a true shell. This is why the shell script uses my system ruby (installed via MacPorts). Here is the shell script below and the launchd plist which I placed in <code>~/Library/LaunchAgents</code> with a name like <code>com.actionmoniker.backupMyApp.plist</code>. Just run <code>launchctl load ~/Library/LaunchAgents/com.actionmoniker.backupMyApp.plist</code> and this will run at 4am every morning. If any one finds out how to automate the execution of this rake task on Heroku, please drop me a line!
 </p>
 
-```bash
+~~~bash
 #! /bin/zsh
 source /Users/kencollins/.zshenv
 cd /Users/kencollins/repos/myapp && /opt/local/bin/rake heroku:backup
-```
+~~~
 
-```html
+~~~html
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -109,7 +109,7 @@ cd /Users/kencollins/repos/myapp && /opt/local/bin/rake heroku:backup
   </dict>
 </dict>
 </plist>
-```
+~~~
 
 
 

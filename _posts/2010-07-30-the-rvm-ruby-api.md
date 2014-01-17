@@ -15,7 +15,7 @@ categories:
   So like any good agile software gardner tasked with building a continuous integration system, I wanted to do it in such a way that was completely automated using rake. My first cut at said rake task used ruby's Kernel.system to issue <code>rvm</code> commands down to the shell. This failed horribly! Basically no matter how hard I tried, I could not hit the rvm shell function from ruby's system command. It kept using the rvm binary which can not change the local shell environment and hence do very little magic that RVM allows. Thankfully <a href="http://twitter.com/wayneeseguin">@wayneeseguin</a> pointed me to the new RVM ruby API and <a href="http://blog.ninjahideout.com/posts/the-path-to-better-rvm-and-passenger-integration">this article on how to use it for passenger</a>. I immediately started to switch my rvm rake tasks to use the new RVM API and was just floored with how well it did. Below is a copy of that rake task. Take a look over it and read below for details and how I have used this with the SQL Server stack.
 </p>
     
-```ruby
+~~~ruby
 MYPROJECT_RUBIES = {
   'ruby-1.8.6-p388'   => {:alias => 'myprj186', :odbc => '0.99991'},
   'ruby-1.8.7-p299'   => {:alias => 'myprj187', :odbc => '0.99991'},
@@ -177,7 +177,7 @@ def with_my_environment_vars
 ensure
   set_environment_vars(current_vars)
 end
-```
+~~~
 
 
 <h2>RVM Rake Task Breakdown</h2>

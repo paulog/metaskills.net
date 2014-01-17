@@ -18,7 +18,7 @@ categories:
 
 <div class="h20"></div>
 
-```ruby
+~~~ruby
 module ActiveSupport
   module Cache
     class MemCacheStore < Store
@@ -79,5 +79,5 @@ module ActiveSupport
     end
   end
 end
-```
+~~~
 

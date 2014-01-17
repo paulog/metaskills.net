@@ -43,7 +43,7 @@ categories:
   <li>A new entry line which is not obscured by the items up above.</li>
 </ul>
 
-```bash
+~~~bash
 # User colors (root colors in /etc/bashrc)
 export TERM="xterm-color"
 C1="\[\033[1;32m\]"
@@ -51,9 +51,9 @@ C2="\[\033[1;30m\]"
 C3="\[\033[0m\]"
 C4="\[\033[0;36m\]"
 export PS1="${C2}(${C1}\u${C2}@${C4}\h${C2}) - (${C4}\A${C2}) - (${C4}\w${C2})\n${C2}-${C1}=>>${C3}"
-```
+~~~
 
-```bash
+~~~bash
 # Root colors (user colors in ~/.bash_profile)
 export TERM="xterm-color"
 C1="\[\033[0;31m\]"
@@ -61,7 +61,7 @@ C2="\[\033[1;30m\]"
 C3="\[\033[0m\]"
 C4="\[\033[0;36m\]"
 export PS1="${C2}(${C1}\u${C2}@${C4}\h${C2}) - (${C4}\A${C2}) - (${C4}\w${C2})\n${C2}-${C1}=>>${C3}"
-```
+~~~
 
 <p>
   Here  is how to install these, they go into two separate places. The first customization commands go into your user home directory in a file called <code>.bash_profile</code> and if you have never modified or used this file, you will have to make a new one. The period that precedes the name is technically not allowed by most text editors since it makes the file invisible. I suggested using <a href="/2005/12/22/textmate-by-programmers-for-efficiency-experts/">TextMate</a> to create or modify this and the file below. Remember, the first file <code>.bash_profile</code> needs to go into your home directory. The more you use your terminal, the more you will start to modify this file. It too is your friend.

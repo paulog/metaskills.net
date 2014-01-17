@@ -28,7 +28,7 @@ categories:
   <a href="https://github.com/metaskills/mini_shoulda">MiniShoulda</a> is a small ruby gem that puts a Shoulda DSL on top of MiniTest::Spec. All it really does it alias a few key methods. Here is the core of it now.
 </p>
 
-```ruby
+~~~ruby
 class MiniTest::Spec < MiniTest::Unit::TestCase
   
   class << self
@@ -43,7 +43,7 @@ class MiniTest::Spec < MiniTest::Unit::TestCase
   end
   
 end
-```
+~~~
 
 <p>
   For now, MiniShoulda performs only one monkey patch to MiniTest. There is a critical bug in MiniTest that does not allow the describe/context blocks to use the existing scope of the parent class. I have a <a href="https://github.com/seattlerb/minitest/pull/9">pull request</a> in for the project. Please help out and add a thoughtful comment based on the <a href="https://github.com/metaskills/minitest/commit/e7cde5bd9e61bc1ac13c7326ef4de23382e3467b">merits of the patch</a> and the <a href="https://gist.github.com/793330">description of the problem</a>. No author likes to see simple +1 comments.
@@ -60,10 +60,10 @@ $ gem install mini_shoulda
   Our gem spec will automatically pull in MiniTest version 2.0.2 or greater. Assuming you have a test helper file, the top requires will looks something like this. MiniTest needs that autorun file required or none of your tests will run.
 </p>
 
-```ruby
+~~~ruby
 require 'mini_shoulda'
 require 'minitest/autorun'
-```
+~~~
 
 <p>
   What should I expect? For starters, expect a few of your tests to fail. Especially ones that were happenstantially running linearly and not exercised in isolation. I think there is a technical term for this? Anyways, MiniTest mixes up the test suite each run trough it using a random seed. So it is highly like to expose a few poorly written tests that depended on state leftover from a previous test. Also the MiniTest::Unit underneath MiniTest::Spec does not have a few assertions you may have used. One is <code>assert_raise</code> which is now the standard convention <code>assert_raises</code> with an "s". And finally <code>assert_nothing_raised</code> has been pulled completely since Test::Unit's documentation alluded to its uselessness for a long time.

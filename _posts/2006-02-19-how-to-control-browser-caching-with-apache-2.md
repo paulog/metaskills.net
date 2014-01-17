@@ -73,7 +73,7 @@ $ tail -f /the/path/to/your/logfile.log | grep 10.0.1.4
 
 <p><strong>Examining Your HTTP Headers</strong> - The other way of finding out if your site is taking advantage of browser caching is to examine the HTTP headers on any given server response, be it a whole page or a single file. You can do this using the <a href="/blog/heuristics/sysadmin/how-to-control-browser-caching-with-apache-2#livehttpheaders">Live HTTP Headers Firefox extension</a> mentioned above or by using the Unix <a href="http://furl.darwinports.com/">furl</a> program if it is installed on your system. A common HTTP header response will look something like this.</p>
 		
-```text
+~~~text
 HTTP/1.1 200 OK
 Date: Sun, 19 Feb 2006 16:42:05 GMT
 Server: Apache/2.0.55 (Unix) DAV/2 PHP/5.1.1
@@ -85,16 +85,16 @@ Cache-Control: max-age=7200
 Expires: Sun, 19 Feb 2006 18:42:05 GMT
 Connection: close
 Content-Type: image/png
-```
+~~~
 
 <p>What we are looking for in the header are the &quot;Cache-Control&quot; and &quot;Expires&quot; fields. These fields control how long the browser will cache this media or page asset from your server. Having a low value like &quot;1&quot; in &quot;Cache-Control&quot; can be just as bad as no value at all.</p>
 
 <p>If you have those fields present, you've got a head start on the situation. If not, you may need to make sure Apache 2 is loading the <a href="http://httpd.apache.org/docs/2.0/mod/mod_expires.html">mod_expires</a> and <a href="http://httpd.apache.org/docs/2.0/mod/mod_headers.html">mod_headers</a> modules. Most installations and builds of Apache 2 include these modules since they are pretty essential. If you are using the Apache 2 in OS X Server's opt directory, this is the case and you only need to make sure that they are turned on by opening the http.conf file and making sure the following two lines do not have an # sign in front of them. </p>
 
-```apache
+~~~apache
 LoadModule expires_module modules/mod_expires.so
 LoadModule headers_module modules/mod_headers.so
-```
+~~~
 		
 <p>When these modules are loaded and working, we can then start to use the correct Apache 2 directives to control how browsers cache everything from pages to images across the whole site or in a specific directory. </p>
 		
@@ -106,7 +106,7 @@ LoadModule headers_module modules/mod_headers.so
 
 <p>Here is a code snippet of an Apache 2 directive that we will be using. This directive can be modified to suite your tastes  or it can just be used &quot;as is&quot; for most users. The directives here can  be placed into the &lt;Directory&gt; directive of your virtual host in http.conf or it can be placed loosely in a .htaccess file in the root of your website.</p>
 
-```apache
+~~~apache
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresDefault "access plus 1 seconds"
@@ -119,7 +119,7 @@ LoadModule headers_module modules/mod_headers.so
   ExpiresByType application/x-javascript "access plus 60 minutes"
   ExpiresByType text/xml "access plus 60 minutes"
 </IfModule>
-```
+~~~
 
       
 <p>Let's examine what is happening here in brief. If you are interested <a href="http://httpd.apache.org/docs/2.0/mod/mod_expires.html">full documentation of the expires directive</a> can be found on Apache's website along with different syntax formats than the ones used here. I like this format since it is inheritably legible. This directive will do the following:</p>

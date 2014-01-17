@@ -11,7 +11,7 @@ categories:
 </p>
 
 
-```ruby
+~~~ruby
 module Webrat
   class Session
     def formatted_error
@@ -35,5 +35,5 @@ module Webrat
     end
   end
 end
-```
+~~~
 

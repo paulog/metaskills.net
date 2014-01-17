@@ -18,7 +18,7 @@ categories:
 </p>
 
 
-```ruby
+~~~ruby
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -27,23 +27,23 @@ group :assets do
   gem 'uglifier'
   gem 'compass', :git => 'git://github.com/chriseppstein/compass.git', :branch => 'rails31'
 end
-```
+~~~
 
 <p>
   Now here is a crazy gotcha. Rails 3.1.0.rc5 has changed the application.rb bundler line a little to account for this new :assets group. Find the bundler line and make sure it looks like this.
 </p>
 
-```ruby
+~~~ruby
 Bundler.require *Rails.groups(:assets) if defined?(Bundler)
-```
+~~~
 
 <p>
   Lastly, we need to get the compass files in the the load path. The sass-rails gem has set us up for this. I choose to hook into it using my <code>config/initializers/sass.rb</code> like so. I imagine that compass will be doing this on its own at some point in the future too. After this you should be all set!
 </p>
 
-```ruby
+~~~ruby
 Rails.configuration.sass.tap do |config|
   config.load_paths << "#{Gem.loaded_specs['compass'].full_gem_path}/frameworks/compass/stylesheets"
 end
-```
+~~~
 

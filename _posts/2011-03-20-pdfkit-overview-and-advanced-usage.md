@@ -48,7 +48,7 @@ $ which wkhtmltopdf
 </aside>
 
 
-```ruby
+~~~ruby
 !!! 5
 %html{:lang => 'en'}
   %head
@@ -57,7 +57,7 @@ $ which wkhtmltopdf
     = stylesheet_link_tag "#{request.protocol}#{request.host_with_port}/stylesheets/pdf.css"
   %body
     = yield(:layout)
-```
+~~~
 
 <p>
   <strong>I recommend that all PDF layouts, templates, and partials use the dual mime type naming convention.</strong> This will allow you to test your rendered HTML to PDF view code using common DOM techniques. Like <code>assert_select</code> in rails or maybe <a href="https://github.com/jnicklas/capybara">capybara's</a> <code>has_selector?</code>. So given that you may have a print action for your orders controller, you would use <code>print_orders_path(@order)</code> for your functional tests with DOM assertions and <code>print_orders_path(@order,:format=>:pdf)</code> for real world usage and/or integration tests. Both formats will render the same partials, templates and layouts if you use that naming structure.
@@ -74,7 +74,7 @@ $ which wkhtmltopdf
   You might be tempted to utilize your existing site's stylesheets for a base and then use media/print techniques to override and customize your printed versions. I am of the opinion that your PDF stylesheets should be very basic and easy to layout. To this end, I highly suggest that you start with an HTML reset CSS. In the example below, I have used <a href="http://yui.yahooapis.com/3.2.0/build/cssreset/reset-min.css">Yahoo's CSS reset</a>. This makes it so that every bit of layout is under your strict control with a common rendering of no margin or padding to throw you off.
 </p>
 
-```css
+~~~css
 /* Reset CSS. http://yui.yahooapis.com/3.2.0/build/cssreset/reset-min.css  */
 html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,
 pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
@@ -99,7 +99,7 @@ hr     { border:0; margin:0; padding:0; height:1px; color:#000; background-color
 .pb_before { page-break-before:always !important; }
 .pb_after  { page-break-after:always !important; }
 .pbi_avoid { page-break-inside:avoid !important; }
-```
+~~~
 
 <p>
   The second section of the CSS above is the place where you can put in a few custom styles that fit your needs. In my example I set a series of header font sizes, a base sans-serif font face and an hr tag that can be used as a simple rule. Feel free to add others here like basic styles for data tables, etc. The last section of the CSS file above are page break helpers. The latest version of wkhtmltopdf never breaks text in the middle of the line anymore. So most of the time the default page break behavior will work fine. But for those situations where you need more control, these 3 CSS declarations will serve most of your needs. Let's take a look at a few examples of their usage. Full details on <a href="http://www.w3.org/TR/css3-page/">CSS paged media</a> can be found on the W3C's site.
@@ -109,14 +109,14 @@ hr     { border:0; margin:0; padding:0; height:1px; color:#000; background-color
   Use the <code>.pbi_avoid</code> class on any block level element that you want to make sure is never broken across multiple pages. A great usage would be on each element of an orders line items. It can also be used on any large page element that will certainly fit on one page, but should never be broken up. This is perfect in places where you might have measured the remaining page space before drawing said element. The <code>.pb_before</code> class will always break to a new page. I found this very useful when printing composite PDF files that combined multiple other PDF actions. So here is another HAML template that renders 3 other PDF full page partials. Each partial can be 1 to many pages. By enclosing each in a <code><div></code> tag that forces a new page break makes sure that we always start a new page when rendering each document.
 </p>
 
-```ruby
+~~~ruby
 %div.pb_before
   = render :partial => 'pdf/orders/print'
 %div.pb_before
   = render :partial => 'pdf/orders/invoice'
 %div.pb_before
   = render :partial => 'pdf/orders/picklist'
-```
+~~~
 
 
 <h2>Custom Headers/Footers</h2>
@@ -129,9 +129,9 @@ hr     { border:0; margin:0; padding:0; height:1px; color:#000; background-color
   Remember that <code>pdfkit-footer_html</code> meta tag in the pdf layout above? If not, here it is again.
 </p>
 
-```ruby
+~~~ruby
 %meta{:name => 'pdfkit-footer_html', :content => pdf_footer_url}
-```
+~~~
 
 <p>
   So what is going on here? Two things really. The first is a way for PDFKit to customize the command arguments passed down to wkhtmltopdf when the page is converted. PDFKit will take any meta tag with a name prefixed using "pdfkit-" and pass down the content attribute as the value to the suffix of the name attribute. In this case <code>--foter-html http://myapp.com/pdf/footer</code> will be used as a command argument to wkhtmltopdf when rendering templates using that layout file. Note, it is important to use fully qualified URLs for header and footer arguments.
@@ -141,7 +141,7 @@ hr     { border:0; margin:0; padding:0; height:1px; color:#000; background-color
   When it comes to headers and footers, wkhtmltopdf takes the URL to an HTML page, renders it to native PDF code and embeds it automatically for you below or above your page margin. You can control the placement of these in one of two ways. The first is by adjusting the layout of the header/footer HTML page. The second is by adjusting the margin of the parent document. In my case, since I knew my footer was around .2 inches tall, I gave it's template an internal top margin of 10 pixels and told PDFKit to increase my global .5 inch page margins by .2 inches for the bottom margin using a rails initializer.
 </p>
 
-```ruby
+~~~ruby
 PDFKit.configure do |config|
   config.default_options = {
     :page_size     => 'Letter',
@@ -151,13 +151,13 @@ PDFKit.configure do |config|
     :margin_left   => '0.5in'
   }
 end
-```
+~~~
 
 <p>
   So now I know that whatever content I render in my <code>http://myapp.com/pdf/footer</code> page will fit just nicely on the bottom of each page. But how to generate that content and the custom page numbers? First, let's make a single pdf resource in our rails route file with a collection action for #footer. Now here is a controller for that resource with a single footer action.
 </p>
 
-```ruby
+~~~ruby
 class PdfController < ApplicationController
   
   def self.perform_caching ; true ; end
@@ -174,7 +174,7 @@ class PdfController < ApplicationController
   end
 
 end
-```
+~~~
 
 <p>
   There is not much here past rendering a basic template file with no layout. All the rest is to achieve an important set of caching rules. Ideally the URL argument to <code>--footer-html</code> would be a static HTML file. However, if want to use Rails templating to render that file, it is important to cache the results. The parent document will request this URL for each page it renders, so you can see how one process could deadlock another if your were not careful. In my example above, I override ActionController's perform_caching class and instance methods so that all actions in this controller would cache. I recommend committing a cached footer html page to any source control you have for deployment.
@@ -184,7 +184,7 @@ end
   With that out of the way, what about the content of the footer HTML page? Again, here is a HAML template I used. This is very much like my pdf layout with one important difference, some JavaScript that is used to parse the query parameters that wkhtmltopdf tacks onto each header/footer URL request. In the example below I am only using the current page <code>page</code> and total page count <code>topage</code> params and inserting those values into to elements. For a full list of all the query parameters, consult the wkhtmltopdf expanded help page.
 </p>
 
-```ruby
+~~~ruby
 !!! 5
 %html{:lang => 'en'}
   %head
@@ -206,7 +206,7 @@ end
       %span#pdfkit_page_current
       %span of 
       %span#pdfkit_page_count
-```
+~~~
 
 <p>
   Hopefully this helps anyone looking to use PDFKit or any system that leverages the wkhtmltopdf project. If I missed anything or can help, please leave me a comment. Thanks!

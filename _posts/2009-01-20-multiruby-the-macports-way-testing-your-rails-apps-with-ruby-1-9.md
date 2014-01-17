@@ -62,7 +62,7 @@ $ sudo mv /opt/local/bin/testrb /opt/local/bin/testrb1.8
   So now that we have two versions of ruby installed, each in their own path suffix. So to switch back and forth without using these suffixes, we will need to create a symlink for each binary that points to the version we want to use. The users of the local ruby group <a href="http://757rb.org/">757rb</a> came up with this ZSH function below. Place it into your <a href="http://github.com/metaskills/zshkit/tree/master">.zshkit</a> or dotfile of choice and it will create/change symlinks for your ruby, irb, rake, etc.. that each point to the version you want to use. Calling it multiple times will simply toggle your ruby versions.
 </p>
 
-```bash
+~~~bash
 chruby () {
   ree=`ruby -e "puts RUBY_DESCRIPTION.include?('Ruby Enterprise Edition')"`
   if [ $ree = "true" ]; then 
@@ -82,7 +82,7 @@ chruby () {
     echo "Now Running: "`ruby -v`
   fi
 }
-```
+~~~
 
 <pre class="command">
 $ chruby

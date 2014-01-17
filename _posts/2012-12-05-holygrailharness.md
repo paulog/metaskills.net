@@ -29,18 +29,18 @@ The HolyGrailHarness is perfect for any of the following:
   * [Download](https://github.com/metaskills/holy_grail_harness/archive/master.zip) the project.
   * Now from the root of "holy_grail_harness" directory.
 
-```ruby
+~~~ruby
 puts "This code will be highlighted"
-```
+~~~
 
 Make sure to replace `my_app_name` above with the name of your new Rails application. The setup script has a few options, but the end result will be a new Rails application all ready to go. **So why not a normal Rails application template?** Although, Rails application templates provide a really nice feature set. It was much easier to bootstrap a new Rails application using this prototype method. The end result is a cleaner Gemfile and application setup that can be vetted and tested from within HolyGrailHarness itself.
 
 The script will rename your directory and prompt you to `cd` to that directory. Once you do that, run `rake test:all` to see that everything is working.
 
-```bash
+~~~bash
 $ cd ../my_app_name
 $ bundle exec rake test:all
-```
+~~~
 
 
 # Rails 3
@@ -57,7 +57,7 @@ This application prototype will focus on the latest Rails version. At this time,
 
 Don't wait for Rails 4 to use MiniTest::Spec! This application is using the [minitest-spec-rails](https://github.com/metaskills/minitest-spec-rails) gem which forces `ActiveSupport::TestCase` to subclass `MiniTest::Spec`. This means that you can start using the MiniTest's Spec or Unit structure and assertions directly within the familiar Rails unit, functional, or integration directories. For full details, check out the [minitest-spec-rails](https://github.com/metaskills/minitest-spec-rails) documentation or some of the [test shims](https://github.com/metaskills/holy_grail_harness/blob/master/test/functional/application_controller_test.rb) within HolyGrailHarness. For example, a `test/unit/user_test.rb` might look like this.
 
-```ruby
+~~~ruby
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
@@ -71,7 +71,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
 end
-```
+~~~
 
 ### Capybara Integration Tests With Poltergeist Using PhantomJS
 
@@ -87,7 +87,7 @@ Integration tests are still within the `ActionDispatch::IntegrationTest` class a
 
 HolyGrailHarness comes with a integration test example in the [test/integration/application_test.rb](https://github.com/metaskills/holy_grail_harness/blob/master/test/integration/application_test.rb) file. An integration test might look something like this.
 
-```ruby
+~~~ruby
 require 'test_helper_integration'
 
 class ApplicationTest < ActionDispatch::IntegrationTest
@@ -101,7 +101,7 @@ class ApplicationTest < ActionDispatch::IntegrationTest
   end
 
 end
-```
+~~~
 
 ### Konacha JavaScript Tests Using PhantomJS
 
@@ -120,19 +120,19 @@ HolyGrailHarness also has a [`spec/javascripts/spec_helper`](https://github.com/
 
 Because your CI system should run all your tests, the HolyGrailHarness has added a Rake task to the test namespace that runs the default rails test task (units, functional, integrations) then your Konacha tests.
 
-```bash
+~~~bash
 $ rake test:all     # Runs all Rails tests, then Konacha tests.
-```
+~~~
 
 ### Guard
 
 TDD in style and run your tests when you hit save! Both [guard-minitest](https://github.com/guard/guard-minitest) and [guard-konacha](https://github.com/alexgb/guard-konacha) are bundled and ready to go. A basic `Guardfile` is already setup too. Unlike most, this one is split into two groups `:ruby` or `:js`. This lets you focus on either everything or a specific language for your tests.
 
-```bash
+~~~bash
 $ guard             # Monitor both Ruby and JavaScript tests.
 $ guard -g ruby     # Monitor Ruby tests.
 $ guard -g js       # Monitor JavaScript tests.
-```
+~~~
 
 The Guardfile assumes you are running OS X and wish to use the Ruby GNTP (Growl Notification Transport Protocol). If this is not the case, consult the Guard documentation on different [system notification](https://github.com/guard/guard#system-notifications) alternatives.
 
@@ -144,7 +144,7 @@ The HolyGrailHarness bundles the [named_seeds](https://github.com/metaskills/nam
 
 Create factories in the `test/factories` directory. Note, factories are best when they make `valid garbage™`, so the HolyGrailHarness also requires the [forgery](https://github.com/sevenwire/forgery) gem to help with that.
 
-```ruby
+~~~ruby
 # In test/factories/user_factory.rb
 
 FactoryGirl.define do
@@ -157,11 +157,11 @@ FactoryGirl.define do
   end
   
 end
-```
+~~~
 
 When making seed data, be explicit with your attributes that may be forged in the factory, database seeds should be consistent and have meaningful attributes. In this example we are creating an admin user. Note too how we are using `NamedSeeds.identify` which mimics AcctiveRecord's fixture identity. This gives us a handle to the fixture within our tests. We also create the `@admin` instance variable because we might want to use that user later on in the fixture story.
 
-```ruby
+~~~ruby
 # In db/test/seeds.rb
 
 require 'factory_girl'
@@ -170,11 +170,11 @@ include FactoryGirl::Syntax::Methods
 
 @admin = create :user, id: NamedSeeds.identify(:admin), 
                        first_name: 'Admin', last_name: 'User', email: 'admin@test.com'
-```
+~~~
 
  Lastly, in your [`test/test_helper.rb`](https://github.com/metaskills/holy_grail_harness/blob/master/test/test_helper.rb) file, declare that you have a named seed to the users model. This will allow your tests to act just like those with ActiveRecord fixtures and use the `users(:admin)` helper to get to that seeded fixture.
 
-```ruby
+~~~ruby
 # In test/test_helper.rb
 
 class ActiveSupport::TestCase
@@ -182,7 +182,7 @@ class ActiveSupport::TestCase
   named_seeds :users
 
 end
-```
+~~~
 
 
 # MVC JavaScript
@@ -191,10 +191,10 @@ The HolyGrailHarness wants you to use some type MV* structure for your JavaScrip
 
 A single JavaScript [namespace](https://github.com/metaskills/holy_grail_harness/blob/master/app/assets/javascripts/holy_grail_harness/lib/namespaces.js.coffee) on the window object. This namespace creates a model, view, controller object structure that direly matches to the [`app/assets/javascripts/#{my_app_name}/(model|view|controller)`](https://github.com/metaskills/holy_grail_harness/tree/master/app/assets/javascripts/holy_grail_harness) directory structure within the Rails asset pipeline. This JavaScript namespace and matching directories will be changed to your new application name as part of the setup task. Here is an example of a User model whose corresponding file would be found in the `app/assets/javascripts/my_app_name/models/user.js.coffee` file.
 
-```coffeescript
+~~~coffeescript
 class @MyAppName.App.Models.User extends View  
   @configure 'User', 'id', 'email'
-```
+~~~
 
 The main [`application.js`](https://github.com/metaskills/holy_grail_harness/blob/master/app/assets/javascripts/application.js) file requires all vendor frameworks, then the [`index.js.coffee`](https://github.com/metaskills/holy_grail_harness/blob/master/app/assets/javascripts/holy_grail_harness/index.js.coffee) within your application name directory. Use this file to boot your JavaScript application and/or setup your root view controller.
 
@@ -206,13 +206,13 @@ If you choose to use Spine.js as your JavaScript MVC structure, the setup script
 
 By default the [`index.js.coffee`](https://github.com/metaskills/holy_grail_harness/blob/master/app/assets/javascripts/holy_grail_harness/index.js.coffee) will require all Spine components. This includes manager (stacks), ajax, route, and relation. Remove anything that you do not need. This file also defines the root view controller along with a `MyAppName.App.Index.init()` class level initialization function. This is called in the main [`application.html.erb`](https://github.com/metaskills/holy_grail_harness/blob/master/app/views/layouts/application.html.erb) layout file for you too. Likewise, the application init is done in the Mocha before filters mentioned above in both the [`spec_helper.js.coffee`](https://github.com/metaskills/holy_grail_harness/blob/master/spec/javascripts/spec_helper.js.coffee) and [`fixtures.js.coffee`](https://github.com/metaskills/holy_grail_harness/blob/master/spec/javascripts/spec_helper/fixtures.js.coffee) files. If you examine these files closely, you will see how they make use of Mocha's `done()` callback so that you can cleanly abstract AJAX mocks and anything else related to your JavaScript application's boot process. Here is an example of how you might setup your `initApplication()`.
 
-```coffeescript
+~~~coffeescript
 @initApplication = (callback) =>
   bob = MyAppName.Test.Seeds.users.bob
   $.mockjax url: "/users/#{bob.id}", responseText: MyAppName.Test.Response.bobInitial.responseText
   MyAppName.App.Models.User.fetch id: bob.id
   MyAppName.App.Models.User.one 'refresh', callback
-```
+~~~
 
 No JavaScript project should be without a local notification system to help keep disparate components up to date. Thankfully, Spine's event module makes a local PubSub system a breeze. The HolyGrailHarness has a [`notifications.js.coffee`](https://github.com/metaskills/holy_grail_harness/blob/master/app/assets/javascripts/holy_grail_harness/lib/notifications.js.coffee) that exposes a class level `bind()` and `trigger()` to any event string/namespace you want. To make more simple, we recommend creating class level functions that expose the event name as the function name and pass the args to the `handle()` function. We have done this for the `MyAppName.Notifications.appReady()` to demonstrate. Calling this function will trigger the `app.ready` event and passing a function to this function will bind that function to the same event name.
 
@@ -223,7 +223,7 @@ No JavaScript project should be without a local notification system to help keep
 
 To get you started on the right path, we have also created a basic structure within the `app/assets/stylesheets` asset pipeline directory to help you organize your Sass files. Here is the directory structure below.
 
-```
+~~~
 ├── application.css
 ├── application
 │   ├── _layout.scss
@@ -237,18 +237,18 @@ To get you started on the right path, we have also created a basic structure wit
     ├── _placeholders.scss
     ├── _variables.scss
     └── base.scss
-```
+~~~
 
 ### The application.css file.
 
 Never write CSS in `application.css`. Say what? I know right, but trust me. Just consider this file a top level bundle dependency that only requires other top level bundle assets. Here is the contents of that file. Notice how it requires a bundle called twitter and an index. One is for twitter bootstrap, see section below, and the other is the index to your own Sass framework.
 
-```css
+~~~css
 /*
  *= require application/twitter
  *= require application/index
 */
-```
+~~~
 
 ### The shared directory.
 
@@ -258,7 +258,7 @@ Pay special attention to the `_placeholders.scss` file. If you do not know about
 
 Below is the contents of the `base.scss` file, take note of the order. See too how we import the entire Compass framework. This means that all of your Sass code in any of the shared files can take full advantage of both Bootstrap and Compass' variables and mixins. Epic win!
 
-```sass
+~~~sass
 // Think of this file as your own compass. Importing the base, never generates CSS.
 
 @import "shared/variables";
@@ -270,17 +270,17 @@ Below is the contents of the `base.scss` file, take note of the order. See too h
 @import "shared/mixins";
 @import "shared/animations";
 @import "shared/placeholders";
-```
+~~~
 
 ### The application directory.
 
 Organize this as you see fit. We have started you off by creating a `_layout.scss` file for your general layout/structure styles. There is also a `components` directory which all sub files are imported via a glob. The idea is that components are not dependent upon another. Files that might go in here are things like datepicker, navigation, and general files named after components or widgets. Below is what the `application/index.scss` looks like.
 
-```sass
+~~~sass
 @import "shared/base";
 @import "./layout";
 @import "components/*";
-```
+~~~
 
 If you are more advanced with your CSS and like the idea of style guides, take a looks a the [Toadstool](https://github.com/Anotheruiguy/toadstool) style guide framework.
 
@@ -291,13 +291,13 @@ If you are more advanced with your CSS and like the idea of style guides, take a
 
 As shown above in the Sass section, we require the `application/twitter.scss` bundle asset from the top level `application.css` bundle file. This twitter bundle file, contents below, take advantage of your shared variables before importing bootstrap from the gem. In this way you can define variables that tweak bootstrap. A good example would be button colors, column widths, etc. Later on in the file you can extend bootstrap styles to your liking. For instance, add more padding to buttons.
 
-```sass
+~~~sass
 @import "shared/variables";
 @import "bootstrap";
 @import "font-awesome";
 
 // Tweak or redefine Twitter classes below.
-```
+~~~
 
 ### Font Awesome
 

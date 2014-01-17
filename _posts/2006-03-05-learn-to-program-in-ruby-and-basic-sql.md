@@ -51,7 +51,7 @@ categories:
 
 <h2>A Few Things To Try (bottles of beer program)</h2>
 
-```ruby
+~~~ruby
 bottles = 99
 
 while bottles.to_i != 0
@@ -62,12 +62,12 @@ while bottles.to_i != 0
     bottles.to_s + ' bottles of beer on the wall.'
   puts ''
 end
-```
+~~~
 
 
 <h2>A Few Things To Try (roman numeral method)</h2>
 
-```ruby
+~~~ruby
 def romanize integer
   mdiv = integer/1000
   m = 'M'*mdiv
@@ -85,12 +85,12 @@ puts romanize(9)
 puts romanize(1)
 puts romanize(278)
 puts romanize(2156)
-```
+~~~
 
 
 <h2>A Few Things To Try (how old are you, spank)</h2>
 
-```ruby
+~~~ruby
 puts 'What year were you born in? (number please)'
 year = gets.chomp.to_i
 puts 'What month were you born on? (number please)'
@@ -107,6 +107,6 @@ puts
 diftoyears.times do
   puts 'SPANK!'
 end
-```
+~~~
 	
 

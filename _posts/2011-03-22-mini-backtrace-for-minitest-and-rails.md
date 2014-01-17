@@ -20,7 +20,7 @@ categories:
   Just add 'mini_backtrace' to your Gemfile's :test group and your should automatically see a huge difference. Any additions to the Rails.backtrace_cleaner should now work.
 </p>
 
-```ruby
+~~~ruby
 Rails.backtrace_cleaner.add_silencer { |line| line =~ /my_noisy_library/ }
-```
+~~~
 

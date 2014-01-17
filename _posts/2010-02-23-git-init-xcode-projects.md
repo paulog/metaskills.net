@@ -12,7 +12,7 @@ categories:
   Here is a little ZSH function I have been using for quickly setting up new XCode apps I call tire kickers, little play and learn apps. Being able to track your learning as you go with git.
 </p>
 
-```bash
+~~~bash
 if [[ -x `which git` ]]; then
   
 	function ginit_xcode () {
@@ -27,11 +27,11 @@ if [[ -x `which git` ]]; then
 	}
   
 fi
-```
+~~~
 
 <p>The echo lines puts out a .gitignore file that will look something like this.</p>
 
-```text
+~~~text
 # XCode
 build
 *.mode1v3
@@ -47,5 +47,5 @@ build
 
 # TextMate
 *.tm_build_errors
-```
+~~~
 

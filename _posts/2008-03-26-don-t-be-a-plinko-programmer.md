@@ -28,7 +28,7 @@ categories:
   Here is a short example of how to use Association Extensions. This is a simple example, but when you get used to really using association extensions you will begin to see just how much of your code really belongs there. Let's assume you have a simple invoice and items class.
 </p>
 
-```ruby
+~~~ruby
 class Invoice < ActiveRecord::Base
   has_many :items, :class_name => 'InvoiceItem', :foreign_key => 'invoice_id'
 end
@@ -38,13 +38,13 @@ class InvoiceItem < ActiveRecord::Base
     # Some complex stuff
   end
 end
-```
+~~~
 
 <p>
   Now let's say that you want to have a clean little method for getting the total of the Invoice object. Resist the temptation to simple add an instance method to the Invoice class. Although it is logical to have <code>@invoice.total</code> it is better to add it too the association extension. Why? Well think about it, what are you doing? The answer is that you are working with a "collection" of InvoiceItems. It turns out that this is the first part of what the association extension is for, an easy way to work with a collection that has the benefits of knowing how to proxy to methods that can reflect back down to the original caller. It's hard to explain but I'll just leave you with my persnickety code example. Your general rule should be if you are working with the collection in part or in total, then the association extension is the place for it. Keep in mind that so far I have only talked about has_may association extensions, you can do these for one-to-on belongs_to and has_one associations as well.
 </p>
 
-```ruby
+~~~ruby
 class Invoice < ActiveRecord::Base
   has_many :items, :class_name => 'InvoiceItem', :foreign_key => 'invoice_id' do
     def total
@@ -60,11 +60,11 @@ class InvoiceItem < ActiveRecord::Base
 end
 # Would yeild code like:
 @invoice.items.total
-```
+~~~
 
 <p>P.S. Here lately I've been creating an app/concerns directory where I put modules that encompass mixed in behavior in so many ways for top level models. Typically these modules/concerns shared instance and class methods with two or more primary classes. They have become an excellent home for association extensions since many large applications will define the same association from different models in the object. To keep the code from duplicating in those different models it is better to do something like this</p>
 
-```ruby
+~~~ruby
 # This file "invoice_item_concerns.rb" would reside in app/concerns
 module InvoiceItemConcerns
   module AssociationExtensions
@@ -92,7 +92,7 @@ end
 # Would yeild code like:
 @invoice.items.total
 @packing_slip.shipments.total
-```
+~~~
 
 
 
