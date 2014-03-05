@@ -18,6 +18,6 @@ categories:
 
 <h2>Where Do I Get ProFont?</h2>
 
-<p>Right here.   I've packaged it for Mac and Windows. If your a Linux or Atari junky and want ProFont, go check out an <a href="http://www.tobias-jung.de/seekingprofont/" title="ProFont for Windows, for Macintosh, for Linux, and even for Atari!">indepentdant maintainer</a> for the font and download those verions from his website. </p>
+<p>Right here.   I've packaged it for Mac and Windows. If your a Linux or Atari junky and want ProFont, go check out an <a href="http://www.tobias-jung.de/seekingprofont/" title="ProFont for Windows, for Macintosh, for Linux, and even for Atari!">independent maintainer</a> for the font and download those versions from his website. </p>
 
 
